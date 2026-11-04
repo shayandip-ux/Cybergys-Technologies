@@ -86,7 +86,7 @@ export default function Achievement() {
         </p>
 
         {/* CTA BUTTON */}
-        <a href="#contact" className="achievement-button">
+        <a href="/#quick-projects" className="achievement-button">
           <span>Let's Get Connected</span>
 
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

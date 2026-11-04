@@ -81,11 +81,11 @@ export default function AboutUs() {
 
           <p>Our expertise spans a spectrum of services, including Web development, Web design, Application development, Digital marketing, BPO/KPO and Customer support services. Specializing in Web development, our professionals bring innovation and expertise to every project.</p>
 
-          <button className="explore_btndesign">
+          <a className="explore_btndesign" href="/about-us" aria-label="Explore more about us">
             Explore Us
             <br />
             More
-          </button>
+          </a>
         </div>
       </div>
 

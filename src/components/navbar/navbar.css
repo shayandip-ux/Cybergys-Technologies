@@ -520,5 +520,6 @@ ACCESSIBILITY
     margin-top: -20px;
     background: transparent;
     box-shadow: none;
+    backdrop-filter: blur(0px);
   }
 }

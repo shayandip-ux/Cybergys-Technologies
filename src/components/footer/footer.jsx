@@ -48,7 +48,13 @@ export default function Footer() {
     });
   };
 
-  const quickLinks = ["Home", "About Us", "Services", "Career", "Contact Us"];
+  const quickLinks = [
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about-us" },
+    { label: "Services", href: "/#services" },
+    { label: "Career", href: "/#team" },
+    { label: "Contact Us", href: "/#quick-projects" },
+  ];
 
   const services = ["Web Designing", "Web Development", "App Development", "eCommerce Support Service", "Digital Marketing"];
 
@@ -136,11 +142,11 @@ export default function Footer() {
             <h3>QUICK LINKS</h3>
 
             <ul>
-              {quickLinks.map((link) => (
-                <li key={link}>
-                  <a href="#">
+              {quickLinks.map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href}>
                     <span className="cyber-footer__chevron"></span>
-                    {link}
+                    {label}
                   </a>
                 </li>
               ))}

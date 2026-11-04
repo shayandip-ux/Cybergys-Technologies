@@ -1,0 +1,47 @@
+.page-breadcrumb {
+  display: flex;
+  width: 100%;
+  min-height: clamp(250px, 50vw, 600px);
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 18px max(24px, calc((100vw - 1400px) / 2));
+  background: url(/src/assets/hero-bg4.png) center center / cover no-repeat;
+}
+
+.page-breadcrumb__title {
+  color: #141414;
+  font-family: "Teko", sans-serif;
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.page-breadcrumb__trail ol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  color: #727272;
+  font-size: 14px;
+  list-style: none;
+}
+
+.page-breadcrumb__trail a {
+  color: #141414;
+  text-decoration: none;
+}
+
+.page-breadcrumb__trail a:hover,
+.page-breadcrumb__trail a:focus-visible {
+  color: #f27d2f;
+}
+
+@media (max-width: 760px) {
+  .page-breadcrumb {
+    min-height: 230px;
+  }
+  .page-breadcrumb__title {
+    padding: 50px 0px 0px 0px;
+  }
+}

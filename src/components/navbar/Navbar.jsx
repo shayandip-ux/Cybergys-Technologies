@@ -3,17 +3,19 @@ import companyLogo from "../../assets/logo.png";
 import "./navbar.css";
 
 const navigationLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Technologies", href: "#technologies" },
-  { label: "Corporate", href: "#corporate" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Contact Us", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/#services" },
+  { label: "Technologies", href: "/#technologies" },
+  { label: "Corporate", href: "/#about" },
+  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Contact Us", href: "/#quick-projects" },
 ];
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeHref, setActiveHref] = useState("#home");
+  const [activeHref, setActiveHref] = useState(
+    window.location.pathname.replace(/\/+$/, "").toLowerCase() === "/about-us" ? "/about-us" : "/",
+  );
 
   function handleLinkClick(href) {
     setActiveHref(href);
@@ -47,7 +49,7 @@ function Navbar() {
           </ul>
 
           {/* CTA BUTTON */}
-          <a className="site-navbar__cta" href="#contact" onClick={() => handleLinkClick("#contact")}>
+          <a className="site-navbar__cta" href="/#quick-projects" onClick={() => handleLinkClick("/#quick-projects")}>
             <span>Start a Project</span>
 
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

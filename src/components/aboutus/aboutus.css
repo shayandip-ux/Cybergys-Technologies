@@ -185,8 +185,11 @@
 ========================================= */
 
 .explore_btndesign {
+  display: inline-flex;
   width: 200px;
   height: 200px;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   border: 1px solid #00000017;
   margin: 100px 0px 0px 70px;
@@ -196,6 +199,8 @@
   background-color: transparent;
   color: #000;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 
   transition:
     background-color 0.4s ease,
