@@ -1,0 +1,516 @@
+/* =========================================
+MAIN NAVBAR
+========================================= */
+
+.site-navbar {
+  position: absolute;
+  z-index: 1000;
+  width: 60%;
+  top: 70px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff80;
+  color: #141414;
+  border-radius: 100px;
+  backdrop-filter: blur(44px);
+  -webkit-backdrop-filter: blur(44px);
+  box-shadow: inset 0 0 36px 0 #ffffff;
+}
+
+.site_logodesign {
+  width: 14%;
+  margin: 0 0 8px 14px;
+  object-fit: contain;
+}
+
+.site-navbar__inner {
+  width: min(100% - 64px, 1120px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin: 0 auto;
+}
+
+/* =========================================
+DESKTOP NAVIGATION
+========================================= */
+
+.site-navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(25px, 4vw, 55px);
+}
+
+.site-navbar__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.5vw, 38px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-navbar__links li {
+  margin: 0;
+  padding: 0;
+}
+
+.site-navbar__links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #282828;
+  font-size: 14px;
+  font-weight: 550;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 250ms ease;
+}
+
+.site-navbar__links a:hover,
+.site-navbar__links a:focus-visible,
+.site-navbar__links a[aria-current="location"] {
+  color: #f27d2f;
+}
+
+/* Underline animation */
+
+.site-navbar__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 0;
+  height: 2px;
+  border-radius: 10px;
+  background: #f27d2f;
+  transition: width 250ms ease;
+}
+
+.site-navbar__links a:hover::after,
+.site-navbar__links a[aria-current="location"]::after {
+  width: 100%;
+}
+
+/* =========================================
+CTA BUTTON
+========================================= */
+
+.site-navbar__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-radius: 99px;
+  background: radial-gradient(62.56% 62.56% at 28.14% -10.42%, #ffffff33 0%, #ffffff00 100%), linear-gradient(0deg, #272727, #272727);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 24px;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow:
+    0px -3px 0px 0px #080808 inset,
+    0px 1px 0px 0px #ffffff4d inset,
+    0px 2.77px 2.21px 0px #0000001f,
+    0px 6.65px 5.32px 0px #00000021,
+    0px 12.52px 10.02px 0px #00000022,
+    0px 22.34px 17.87px 0px #00000024,
+    0px 3px 3px 0px #00000024;
+  transition:
+    transform 250ms ease,
+    background 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.site-navbar__cta:hover,
+.site-navbar__cta:focus-visible {
+  background: #f27d2f;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(242 125 47 / 35%);
+}
+
+.site-navbar__cta svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  transition: transform 250ms ease;
+}
+
+.site-navbar__cta:hover svg {
+  transform: translateX(5px);
+}
+
+/* =========================================
+HAMBURGER BUTTON
+========================================= */
+
+.site-navbar__toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* =========================================
+LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1440px) {
+  .site-navbar {
+    width: 60%;
+  }
+
+  .site-navbar__inner {
+    width: min(100% - 20px, 1380px);
+  }
+
+  .site-navbar__links a {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+LAPTOP
+========================================= */
+
+@media (max-width: 1439px) and (min-width: 901px) {
+  .site-navbar {
+    width: 85%;
+  }
+
+  .site-navbar__inner {
+    width: calc(100% - 40px);
+    gap: 15px;
+  }
+
+  .site-navbar__menu {
+    gap: 25px;
+  }
+
+  .site-navbar__links {
+    gap: clamp(15px, 2vw, 28px);
+  }
+}
+
+/* =========================================
+TABLET AND MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+  .site-navbar {
+    width: calc(100% - 40px);
+    border-radius: 24px;
+    top: 70px;
+  }
+
+  .site-navbar__inner {
+    position: relative;
+    width: calc(100% - 40px);
+    min-height: 82px;
+    gap: 15px;
+  }
+
+  .site_logodesign {
+    width: 18%;
+    margin: 0 0 5px 5px;
+  }
+
+  /* HAMBURGER */
+
+  .site-navbar__toggle {
+    position: relative;
+    z-index: 1002;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .site-navbar__toggle span {
+    display: block;
+    width: 23px;
+    height: 2px;
+    border-radius: 10px;
+    background: #f27d2f;
+    transition:
+      transform 350ms cubic-bezier(0.68, -0.55, 0.27, 1.55),
+      opacity 200ms ease,
+      width 250ms ease;
+  }
+
+  .site-navbar__toggle span:nth-child(2) {
+    width: 17px;
+    margin-left: 6px;
+  }
+
+  /* HAMBURGER TO CLOSE */
+
+  .site-navbar__toggle.is-open span:first-child {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .site-navbar__toggle.is-open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+
+  .site-navbar__toggle.is-open span:last-child {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* =====================================
+ANIMATED FLOATING MENU
+===================================== */
+
+  .site-navbar__menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid #f1f1f1;
+    border-radius: 22px;
+
+    box-shadow:
+      0 15px 35px rgb(0 0 0 / 8%),
+      0 35px 70px rgb(0 0 0 / 8%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-18px) scale(0.96);
+    transform-origin: top center;
+    transition:
+      opacity 350ms ease,
+      transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 350ms ease;
+  }
+
+  /* MENU OPEN */
+
+  .site-navbar__menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  /* =====================================
+MENU LINKS
+===================================== */
+
+  .site-navbar__links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .site-navbar__links li {
+    width: 100%;
+    border-radius: 12px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 350ms ease,
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 0ms;
+  }
+
+  /* STAGGERED ANIMATION */
+
+  .site-navbar__menu.is-open .site-navbar__links li {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--link-index) * 65ms + 100ms);
+  }
+
+  .site-navbar__links li:hover {
+    background: #fff6f0;
+  }
+
+  .site-navbar__links a {
+    display: flex;
+    width: 100%;
+    min-height: 49px;
+    padding: 0 15px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #282828;
+  }
+
+  .site-navbar__links a::after {
+    display: none;
+  }
+
+  .site-navbar__links a:hover,
+  .site-navbar__links a[aria-current="location"] {
+    color: #f27d2f;
+  }
+
+  /* =====================================
+CTA ANIMATION
+===================================== */
+
+  .site-navbar__cta {
+    width: 100%;
+    min-height: 54px;
+    padding: 14px 20px;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 350ms ease,
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      background 250ms ease;
+  }
+
+  .site-navbar__menu.is-open .site-navbar__cta {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 490ms;
+  }
+}
+
+/* =========================================
+SMALL TABLET
+========================================= */
+
+@media (max-width: 768px) {
+  .site-navbar {
+    width: calc(100% - 32px);
+  }
+
+  .site-navbar__inner {
+    width: calc(100% - 36px);
+    min-height: 78px;
+  }
+
+  .site_logodesign {
+    width: 20%;
+  }
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .site-navbar {
+    width: calc(100% - 28px);
+    border-radius: 21px;
+  }
+
+  .site-navbar__inner {
+    width: calc(100% - 30px);
+    min-height: 74px;
+    gap: 12px;
+  }
+
+  .site_logodesign {
+    width: 25%;
+    margin: 0 0 5px 5px;
+  }
+
+  .site-navbar__toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .site-navbar__menu {
+    top: calc(100% + 12px);
+    padding: 16px;
+    gap: 14px;
+    border-radius: 19px;
+  }
+
+  .site-navbar__links a {
+    min-height: 46px;
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .site-navbar {
+    width: calc(100% - 24px);
+  }
+
+  .site-navbar__inner {
+    width: calc(100% - 24px);
+    min-height: 70px;
+    gap: 10px;
+  }
+
+  .site_logodesign {
+    width: 28%;
+    margin: 0 0 5px 4px;
+  }
+
+  .site-navbar__toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .site-navbar__menu {
+    padding: 14px;
+  }
+}
+
+/* =========================================
+EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 320px) {
+  .site-navbar__inner {
+    width: calc(100% - 18px);
+    min-height: 65px;
+  }
+
+  .site_logodesign {
+    width: 30%;
+  }
+}
+
+/* =========================================
+ACCESSIBILITY
+========================================= */
+
+.site-navbar a:focus-visible,
+.site-navbar__toggle:focus-visible {
+  outline: 3px solid #f27d2f;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-navbar *,
+  .site-navbar *::before,
+  .site-navbar *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

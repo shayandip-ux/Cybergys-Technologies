@@ -1,0 +1,603 @@
+/* =========================================
+   ABOUT US MAIN SECTION
+========================================= */
+
+.aboutus_mainoutsection {
+  margin: 80px 0px 0px 0px;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+.aboutus_mainoutsection:not(.is-visible) .aboutus-heading-enter,
+.aboutus_mainoutsection:not(.is-visible) .aboutus-shape-enter,
+.aboutus_mainoutsection:not(.is-visible) .aboutus-left-enter,
+.aboutus_mainoutsection:not(.is-visible) .aboutus-right-enter,
+.aboutus_mainoutsection:not(.is-visible) .aboutus-bottom-left-enter,
+.aboutus_mainoutsection:not(.is-visible) .aboutus-bottom-right-enter {
+  opacity: 0;
+}
+
+.aboutus_mainoutsection.is-visible .aboutus-heading-enter {
+  animation: aboutus-fade-in-up 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.aboutus_mainoutsection.is-visible .aboutus-shape-enter {
+  animation: aboutus-fade-in-right 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 300ms both;
+}
+
+.aboutus_mainoutsection.is-visible .aboutus-left-enter {
+  animation: aboutus-fade-in-up 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 250ms both;
+}
+
+.aboutus_mainoutsection.is-visible .aboutus-right-enter {
+  animation: aboutus-fade-in-right 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 400ms both;
+}
+
+.aboutus_mainoutsection.is-visible .aboutus-bottom-left-enter {
+  animation: aboutus-fade-in-up 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 450ms both;
+}
+
+.aboutus_mainoutsection.is-visible .aboutus-bottom-right-enter {
+  animation: aboutus-fade-in-right 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) 600ms both;
+}
+
+@keyframes aboutus-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aboutus-fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(56px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================================
+   HEADING SECTION
+========================================= */
+
+.aboutus_firstoutsection {
+  margin: 0px 200px 0px 200px;
+  position: relative;
+}
+
+.aboutus_fstheading {
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0px 40px 0px 0px;
+}
+
+.aboutus_secondoutsection {
+  display: block;
+  font-size: 100px;
+  color: #000;
+  font-family: "Teko", sans-serif;
+  font-weight: 800;
+  line-height: 100px;
+  position: relative;
+  top: 25px;
+}
+
+.aboutus_graytext {
+  color: #999999;
+}
+
+.aboutus-growth {
+  padding-left: 20px;
+}
+
+.aboutus-development {
+  padding-right: 20px;
+}
+
+.aboutus_rightshapedesign {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
+/* =========================================
+   ABOUT CONTENT SECTION
+========================================= */
+
+.aboutus_secondstructureoutsection {
+  width: min(calc(100% - 40px), 1500px);
+  margin: 100px auto 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 4fr);
+}
+
+.aboutus_secondstructureleft,
+.aboutus_secondstructureright {
+  min-width: 0;
+  min-height: 1px;
+}
+
+.aboutus_secondstructureleft {
+  border-right: 1px solid #00000029;
+  height: 550px;
+}
+
+.aboutus_secondstructureleft > img {
+  max-width: 100%;
+  height: auto;
+}
+
+.aboutus-counter {
+  display: flex;
+  margin-top: 20px;
+}
+
+.aboutus_leftnumbertextdesign {
+  font-family: "Teko", sans-serif;
+  font-size: 38px;
+  color: #000;
+  font-weight: 500;
+  transform: rotate(270deg);
+  display: inline-block;
+  margin: 20px 0px 0px 0px;
+}
+
+.aboutus_leftrotatetetxtdesign {
+  color: #555555;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+/* =========================================
+   RIGHT CONTENT
+========================================= */
+
+.aboutus_secondstructureright {
+  min-width: 0;
+}
+
+.aboutus_secondstructureright p {
+  color: #555555;
+  font-size: 20px;
+  text-align: justify;
+  padding-left: 40px;
+  line-height: 30px;
+}
+
+.aboutus_secondstructureright p + p {
+  padding-top: 20px;
+}
+
+/* =========================================
+   EXPLORE BUTTON
+========================================= */
+
+.explore_btndesign {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid #00000017;
+  margin: 100px 0px 0px 70px;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 600;
+  background-color: transparent;
+  color: #000;
+  cursor: pointer;
+
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    transform 0.4s ease;
+}
+
+.explore_btndesign:hover {
+  background-color: #f27d2f;
+  color: #fff;
+  border-color: #f27d2f;
+  transform: scale(1.05);
+}
+
+/* =========================================
+   BOTTOM IMAGE SECTION
+========================================= */
+
+.aboutus-bottom-section {
+  display: flex;
+  margin: 60px 200px 0px;
+  position: relative;
+}
+
+.aboutdown_leftsection {
+  width: 40%;
+}
+
+.aboutdown_rightsection {
+  width: 60%;
+}
+
+.aboutdown_leftsection img {
+  width: 100%;
+}
+
+.aboutdown_rightsection img {
+  width: 60%;
+  float: right;
+  margin: -272px 0px 0px 0px;
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .aboutus_mainoutsection:not(.is-visible) .aboutus-heading-enter,
+  .aboutus_mainoutsection:not(.is-visible) .aboutus-shape-enter,
+  .aboutus_mainoutsection:not(.is-visible) .aboutus-left-enter,
+  .aboutus_mainoutsection:not(.is-visible) .aboutus-right-enter,
+  .aboutus_mainoutsection:not(.is-visible) .aboutus-bottom-left-enter,
+  .aboutus_mainoutsection:not(.is-visible) .aboutus-bottom-right-enter {
+    opacity: 1;
+  }
+
+  .aboutus_mainoutsection.is-visible .aboutus-heading-enter,
+  .aboutus_mainoutsection.is-visible .aboutus-shape-enter,
+  .aboutus_mainoutsection.is-visible .aboutus-left-enter,
+  .aboutus_mainoutsection.is-visible .aboutus-right-enter,
+  .aboutus_mainoutsection.is-visible .aboutus-bottom-left-enter,
+  .aboutus_mainoutsection.is-visible .aboutus-bottom-right-enter {
+    animation: none;
+  }
+}
+
+/* =========================================
+   LAPTOP RESPONSIVE
+========================================= */
+
+@media (max-width: 1599px) and (min-width: 1201px) {
+  .aboutus_firstoutsection {
+    margin-left: 120px;
+    margin-right: 120px;
+  }
+
+  .aboutus_secondoutsection {
+    font-size: 90px;
+    line-height: 90px;
+  }
+
+  .aboutus_secondstructureoutsection {
+    width: calc(100% - 160px);
+  }
+
+  .aboutus-bottom-section {
+    margin-left: 120px;
+    margin-right: 120px;
+  }
+}
+
+/* =========================================
+   SMALL LAPTOP
+========================================= */
+
+@media (max-width: 1200px) and (min-width: 901px) {
+  .aboutus_firstoutsection {
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+
+  .aboutus_secondoutsection {
+    font-size: 75px;
+    line-height: 78px;
+  }
+
+  .aboutus_rightshapedesign {
+    width: 160px;
+  }
+
+  .aboutus_secondstructureoutsection {
+    width: calc(100% - 100px);
+  }
+
+  .aboutus_secondstructureleft {
+    height: 480px;
+  }
+
+  .aboutus_secondstructureright p {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .explore_btndesign {
+    width: 170px;
+    height: 170px;
+    margin: 70px 0px 0px 40px;
+  }
+
+  .aboutus-bottom-section {
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+
+  .aboutdown_rightsection img {
+    margin-top: -180px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) and (min-width: 641px) {
+  .aboutus_mainoutsection {
+    margin-top: 60px;
+  }
+
+  .aboutus_firstoutsection {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  .aboutus_secondoutsection {
+    font-size: 65px;
+    line-height: 68px;
+  }
+
+  .aboutus_rightshapedesign {
+    width: 130px;
+  }
+
+  .aboutus_secondstructureoutsection {
+    width: calc(100% - 80px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    margin-top: 75px;
+  }
+
+  .aboutus_secondstructureleft {
+    height: auto;
+  }
+
+  .aboutus_secondstructureleft > img {
+    width: 90%;
+  }
+
+  .aboutus_leftnumbertextdesign {
+    font-size: 32px;
+  }
+
+  .aboutus_leftrotatetetxtdesign {
+    font-size: 17px;
+    line-height: 23px;
+  }
+
+  .aboutus_secondstructureright p {
+    font-size: 16px;
+    line-height: 25px;
+    padding-left: 20px;
+  }
+
+  .explore_btndesign {
+    width: 140px;
+    height: 140px;
+    margin: 50px 0px 0px 20px;
+    font-size: 17px;
+  }
+
+  .aboutus-bottom-section {
+    margin: 50px 40px 0px;
+  }
+
+  .aboutdown_leftsection {
+    width: 45%;
+  }
+
+  .aboutdown_rightsection {
+    width: 55%;
+  }
+
+  .aboutdown_rightsection img {
+    width: 75%;
+    margin-top: -100px;
+  }
+}
+
+/* =========================================
+   MOBILE AND SMALL TABLET
+========================================= */
+
+@media (max-width: 640px) {
+  .aboutus_mainoutsection {
+    margin-top: 45px;
+  }
+
+  .aboutus_firstoutsection {
+    margin: 0px 25px;
+  }
+
+  .aboutus_fstheading {
+    font-size: 17px;
+    padding-right: 10px;
+  }
+
+  .aboutus_secondoutsection {
+    font-size: clamp(42px, 9vw, 58px);
+    line-height: 1;
+    top: 15px;
+  }
+
+  .aboutus_rightshapedesign {
+    width: 100px;
+  }
+
+  .aboutus_secondstructureoutsection {
+    width: calc(100% - 50px);
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 55px;
+  }
+
+  .aboutus_secondstructureleft {
+    height: auto;
+    border-right: none;
+  }
+
+  .aboutus_secondstructureleft > img {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .aboutus-counter {
+    margin-bottom: 30px;
+  }
+
+  .aboutus_secondstructureright p {
+    font-size: 16px;
+    line-height: 25px;
+    padding-left: 0px;
+  }
+
+  .explore_btndesign {
+    width: 130px;
+    height: 130px;
+    margin: 35px 0px 0px 0px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .aboutus-bottom-section {
+    margin: 45px 25px 0px;
+  }
+
+  .aboutdown_leftsection {
+    width: 50%;
+  }
+
+  .aboutdown_rightsection {
+    width: 50%;
+  }
+
+  .aboutdown_rightsection img {
+    width: 90%;
+    margin-top: -40px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .aboutus_mainoutsection {
+    margin-top: 100px;
+  }
+
+  .aboutus_firstoutsection {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+
+  .aboutus_fstheading {
+    font-size: 15px;
+  }
+
+  .aboutus_secondoutsection {
+    font-size: clamp(36px, 4.5vw, 46px);
+    line-height: 36px;
+  }
+
+  .aboutus_rightshapedesign {
+    width: 75px;
+    bottom: -34px;
+  }
+
+  .aboutus_secondstructureoutsection {
+    width: calc(100% - 36px);
+    margin-top: 45px;
+  }
+
+  .aboutus_leftnumbertextdesign {
+    font-size: 32px;
+  }
+
+  .aboutus_leftrotatetetxtdesign {
+    font-size: 17px;
+    line-height: 22px;
+  }
+
+  .aboutus_secondstructureright p {
+    font-size: 13px;
+    line-height: 24px;
+    text-align: left;
+  }
+
+  .explore_btndesign {
+    width: 115px;
+    height: 115px;
+    margin-top: 30px;
+    font-size: 15px;
+    line-height: 23px;
+  }
+
+  .aboutus-bottom-section {
+    margin: 35px 18px 0px;
+  }
+
+  .aboutdown_rightsection img {
+    width: 90%;
+    margin-top: -150px;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+  .aboutus_secondoutsection {
+    font-size: 34px;
+    line-height: 0.95;
+  }
+
+  .aboutus_rightshapedesign {
+    width: 65px;
+  }
+
+  .aboutus_secondstructureoutsection {
+    width: calc(100% - 30px);
+  }
+
+  .aboutus_secondstructureright p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .aboutus_leftrotatetetxtdesign {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .explore_btndesign {
+    width: 105px;
+    height: 105px;
+    font-size: 14px;
+  }
+
+  .aboutus-bottom-section {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+}

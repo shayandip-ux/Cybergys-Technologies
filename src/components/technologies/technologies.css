@@ -1,0 +1,355 @@
+.technologies-section {
+  position: relative;
+  min-height: clamp(680px, 75vw, 830px);
+  overflow: hidden;
+  background: #fff;
+  scroll-margin-top: 24px;
+}
+
+.technologies-section__content {
+  position: relative;
+  z-index: 2;
+  padding: clamp(44px, 6.2vw, 64px) 24px 48px;
+}
+
+.technologies-section__label {
+  display: inline-flex;
+  width: 320px;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 25px;
+  border-radius: 999px;
+  /* background: linear-gradient(110deg, #f78d6c, #f2f2f2); */
+  background-image: url(src/assets/contact-bg.jpg);
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 90%);
+  color: #080808;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.technologies-section__arrow {
+  font-size: 34px;
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+.technologies-section__title {
+  max-width: 800px;
+  margin: 20px 0 28px;
+  color: #050505;
+  font-family: "Teko", sans-serif;
+  font-size: clamp(40px, 4.9vw, 80px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+.technologies-section__grid {
+  display: grid;
+  width: max-content;
+  height: clamp(330px, 44vw, 500px);
+  grid-template-columns: repeat(4, clamp(76px, 9.8vw, 130px));
+  gap: clamp(12px, 1.8vw, 30px);
+}
+
+.technologies-section__column {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.technologies-section__track {
+  display: flex;
+  flex-direction: column;
+  animation: technologies-marquee-up 20s linear infinite;
+  will-change: transform;
+}
+
+.technologies-section__track.is-reversed {
+  animation-name: technologies-marquee-down;
+}
+
+.technologies-section__column-set {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: clamp(12px, 1.8vw, 18px);
+}
+
+.technologies-section__tile {
+  display: grid;
+  width: 100%;
+  flex: 0 0 auto;
+  aspect-ratio: 1 / 1.04;
+  place-items: center;
+  overflow: hidden;
+}
+
+.technologies-section__tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes technologies-marquee-up {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes technologies-marquee-down {
+  from {
+    transform: translateY(-50%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.technologies-section__team {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 48%;
+  height: 75%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+.technologies-section.is-visible .technologies-section__team {
+  animation: technologies-slide-in-up 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.technologies-section__team img {
+  display: block;
+  width: 100%;
+  /* height: 100%;
+  object-fit: cover;
+  object-position: center 42%; */
+}
+
+.technologies-section__decoration {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* .technologies-section__decoration::before,
+.technologies-section__decoration::after {
+  position: absolute;
+  content: "";
+  background: #f7f6f2;
+}
+
+.technologies-section__decoration::before {
+  top: -105px;
+  right: -120px;
+  width: 255px;
+  height: 330px;
+  border-radius: 48% 0 0 50%;
+  transform: rotate(-12deg);
+} */
+
+.technologies-section__decoration::after {
+  top: 265px;
+  right: -78px;
+  width: 210px;
+  height: 190px;
+  border-radius: 50%;
+}
+
+/* .technologies-section__orb {
+  position: absolute;
+  top: 97px;
+  right: 14.2%;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #f7f6f2;
+} */
+
+.backshape_section {
+  position: absolute;
+  right: -31%;
+  bottom: 37%;
+  z-index: 0;
+  width: 53%;
+  height: 64%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(48px);
+}
+
+.technologies-section.is-visible .backshape_section {
+  animation: technologies-slide-in-left 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 120ms both;
+}
+
+@keyframes technologies-slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes technologies-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.backshape_imgdesign {
+  transform: rotateY(180deg);
+}
+
+@media (min-width: 1400px) {
+  .technologies-section__content {
+    padding-left: max(24px, calc((100vw - 1400px) / 2));
+  }
+}
+
+@media (max-width: 760px) {
+  .technologies-section {
+    min-height: auto;
+  }
+
+  .technologies-section__content {
+    padding: 44px 20px 36px;
+  }
+
+  .technologies-section__label {
+    width: min(260px, 100%);
+    min-height: 52px;
+    padding: 0 20px;
+    font-size: 17px;
+  }
+
+  .technologies-section__title {
+    max-width: 500px;
+    margin: 24px 0;
+    font-size: clamp(36px, 8vw, 52px);
+  }
+
+  .technologies-section__grid {
+    width: 100%;
+    height: clamp(330px, 92vw, 420px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(8px, 2.4vw, 16px);
+  }
+
+  .technologies-section__column-set {
+    gap: clamp(8px, 2.4vw, 16px);
+  }
+
+  .technologies-section__tile {
+    border-radius: 0;
+  }
+
+  .technologies-section__team {
+    position: relative;
+    width: 100%;
+    height: min(71vw, 540px);
+    margin-top: 16px;
+  }
+
+  .technologies-section__team img {
+    object-position: center 42%;
+  }
+
+  .technologies-section__orb {
+    top: 80px;
+    right: 8%;
+    width: 64px;
+    height: 64px;
+  }
+
+  .technologies-section__decoration::before {
+    top: -100px;
+    right: -155px;
+  }
+
+  .technologies-section__decoration::after {
+    top: 360px;
+    right: -120px;
+    width: 170px;
+    height: 170px;
+  }
+}
+
+@media (max-width: 440px) {
+  .technologies-section__content {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .technologies-section__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    height: 330px;
+  }
+
+  .technologies-section__column-set {
+    gap: 8px;
+  }
+
+  .technologies-section__tile {
+    border-radius: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .technologies-section__track {
+    animation: none;
+  }
+
+  .technologies-section__team,
+  .backshape_section {
+    opacity: 1;
+    transform: none;
+  }
+
+  .technologies-section.is-visible .technologies-section__team,
+  .technologies-section.is-visible .backshape_section {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .backshape_section {
+    width: 36%;
+    right: 0%;
+    bottom: -30%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .technologies-section__team {
+    width: 60%;
+    height: 48%;
+  }
+  .backshape_section {
+    right: 0%;
+    bottom: 0%;
+    width: 40%;
+    height: 100%;
+  }
+}
