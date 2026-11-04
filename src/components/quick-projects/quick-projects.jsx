@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import projectImage from "../../assets/hero-thumb-1.png";
 import "./quick-projects.css";
 
 const teamImages = [
@@ -69,7 +70,7 @@ export default function QuickProjects() {
               <img src={member.image} alt={member.alt} />
             </div>
           ))} */}
-          <img src="src/assets/hero-thumb-1.png"></img>
+          <img src={projectImage} alt="" />
         </div>
 
         {/* RIGHT CONTENT AREA */}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./services.css";
+import servicesBackground from "../../assets/service-background.png";
 import webDesignImage from "../../assets/srv_1.png";
 import webDevelopmentImage from "../../assets/srv_2.png";
 import appDevelopmentImage from "../../assets/app-development.png";
@@ -67,7 +68,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" className={`services-section bg-[url('src/assets/service-background.png')] bg-cover bg-top bg-no-repeat${isVisible ? " is-visible" : ""}`} aria-labelledby="services-title">
+    <section id="services" className={`services-section bg-cover bg-top bg-no-repeat${isVisible ? " is-visible" : ""}`} style={{ backgroundImage: `url(${servicesBackground})` }} aria-labelledby="services-title">
       <div className="services-inner">
         <div ref={headingRef} className="services-intro services-enter-up">
           <span className="services-intro__eyebrow">[ EXPLORE SERVICES ]</span>

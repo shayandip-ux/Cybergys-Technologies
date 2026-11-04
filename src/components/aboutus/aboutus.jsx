@@ -1,4 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import aboutShape from "../../assets/img-s-66.webp";
+import aboutImage from "../../assets/img-s-4.webp";
+import codeImage from "../../assets/code-1.png";
+import aboutRightImage from "../../assets/about-right.png";
 import "./aboutus.css";
 
 export default function AboutUs() {
@@ -46,7 +50,7 @@ export default function AboutUs() {
           YOUR BRANDING!
         </span>
 
-        <img src="src/assets/img-s-66.webp" className="aboutus_rightshapedesign aboutus-shape-enter" alt="" aria-hidden="true" />
+        <img src={aboutShape} className="aboutus_rightshapedesign aboutus-shape-enter" alt="" aria-hidden="true" />
       </div>
 
       {/* ABOUT CONTENT */}
@@ -55,7 +59,7 @@ export default function AboutUs() {
         {/* LEFT CONTENT */}
 
         <div className="aboutus_secondstructureleft aboutus-left-enter">
-          <img src="src/assets/img-s-4.webp" alt="" />
+          <img src={aboutImage} alt="" />
 
           <div className="aboutus-counter">
             <span className="aboutus_leftnumbertextdesign">32k+</span>
@@ -89,11 +93,11 @@ export default function AboutUs() {
 
       <div className="aboutus-bottom-section">
         <div className="aboutdown_leftsection aboutus-bottom-left-enter">
-          <img src="src/assets/code-1.png" alt="" />
+          <img src={codeImage} alt="" />
         </div>
 
         <div className="aboutdown_rightsection aboutus-bottom-right-enter">
-          <img src="src/assets/about-right.png" alt="" />
+          <img src={aboutRightImage} alt="" />
         </div>
       </div>
     </section>

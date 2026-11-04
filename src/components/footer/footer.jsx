@@ -1,4 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import footerRibbon from "../../assets/img-s-28.webp";
+import companyLogo from "../../assets/logo-1.png";
+import facebookIcon from "../../assets/facebook.png";
+import linkedInIcon from "../../assets/linkedin-blue.png";
+import twitterIcon from "../../assets/twitter.png";
+import addressIcon from "../../assets/maps-and-flags.png";
+import emailIcon from "../../assets/emails.png";
+import phoneIcon from "../../assets/call.png";
 import "./footer.css";
 
 export default function Footer() {
@@ -64,7 +72,7 @@ export default function Footer() {
 
           <path d="M165 45 L245 70" stroke="#3526ed" strokeWidth="39" strokeLinecap="round" />
         </svg> */}
-        <img src="src/assets/img-s-28.webp"></img>
+        <img src={footerRibbon} alt="" />
       </div>
 
       <div className="cyber-footer__container">
@@ -103,22 +111,22 @@ export default function Footer() {
         <div className="cyber-footer__main">
           {/* COMPANY INFORMATION */}
           <div className="cyber-footer__company">
-            <img src="src/assets/logo-1.png"></img>
+            <img src={companyLogo} alt="Cybergys Technologies" />
 
             <p className="cyber-footer__description">Welcome to Cybergys Technologies – Empowering Technological Excellence Since 2006. Cybergys has emerged as a leading company in the digital realm headquartered in Kolkata, India.</p>
 
             {/* SOCIAL ICONS */}
             <div className="cyber-footer__socials">
               <a href="#" aria-label="Facebook">
-                <img src="src/assets/facebook.png"></img>
+                <img src={facebookIcon} alt="" />
               </a>
 
               <a href="#" aria-label="LinkedIn">
-                <img src="src/assets/linkedin-blue.png"></img>
+                <img src={linkedInIcon} alt="" />
               </a>
 
               <a href="#" aria-label="X">
-                <img src="src/assets/twitter.png"></img>
+                <img src={twitterIcon} alt="" />
               </a>
             </div>
           </div>
@@ -159,17 +167,17 @@ export default function Footer() {
         {/* CONTACT INFORMATION */}
         <div className="cyber-footer__contact">
           <div className="cyber-footer__contact-item cyber-footer__address">
-            <img src="src/assets/maps-and-flags.png" className="adress_icons"></img>
+            <img src={addressIcon} className="adress_icons" alt="" />
             <span>15th Floor, Module 18, Bengal Eco Intelligent Park, EM-3, Sector V, Salt Lake, Kolkata – 700091</span>
           </div>
 
           <a href="mailto:info@cybergys.com" className="cyber-footer__contact-item">
-            <img src="src/assets/emails.png" className="adress_icons"></img>
+            <img src={emailIcon} className="adress_icons" alt="" />
             <span>info@cybergys.com</span>
           </a>
 
           <a href="tel:+919007753459" className="cyber-footer__contact-item">
-            <img src="src/assets/call.png" className="adress_icons"></img>
+            <img src={phoneIcon} className="adress_icons" alt="" />
             <span>+91 9007753459</span>
           </a>
         </div>

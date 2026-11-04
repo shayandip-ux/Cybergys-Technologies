@@ -16,6 +16,7 @@ import leadsHookImage from "../../assets/leadshook.png";
 import webflowImage from "../../assets/webflow.png";
 import photoshopImage from "../../assets/photoshop.png";
 import figmaImage from "../../assets/figma.png";
+import companyBackground from "../../assets/mitech-home-infotechno-section-company-bg.webp";
 import "./technologies.css";
 
 const technologies = [
@@ -110,7 +111,7 @@ export default function Technologies() {
         <img src={teamImage} alt="Colleagues collaborating together in their office" />
       </div>
       <div className="backshape_section" aria-hidden="true">
-        <img src="src/assets/mitech-home-infotechno-section-company-bg.webp" className="backshape_imgdesign" alt="" />
+        <img src={companyBackground} className="backshape_imgdesign" alt="" />
       </div>
     </section>
   );

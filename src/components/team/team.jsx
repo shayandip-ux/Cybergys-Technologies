@@ -4,6 +4,7 @@ import alexImage from "../../assets/team-3-1 3.png";
 import emilyImage from "../../assets/team-3-1 1.png";
 import sophiaImage from "../../assets/team-3-1 2.png";
 import teamCardFrame from "../../assets/Abstract-Blue-Gradient-UI-Card-with-shadow.png";
+import teamBackground from "../../assets/service-background.png";
 
 import "./team.css";
 
@@ -166,7 +167,7 @@ export default function Team() {
   }
 
   return (
-    <section ref={sectionRef} className={`team-section bg-[url('src/assets/service-background.png')] bg-cover bg-top bg-no-repeat${isVisible ? " is-visible" : ""}`} id="team" aria-labelledby="team-title">
+    <section ref={sectionRef} className={`team-section bg-cover bg-top bg-no-repeat${isVisible ? " is-visible" : ""}`} style={{ backgroundImage: `url(${teamBackground})` }} id="team" aria-labelledby="team-title">
       <div className="team-section__inner">
         {/* SECTION HEADING */}
         <header className="team-section__heading">

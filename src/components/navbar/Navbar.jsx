@@ -1,4 +1,5 @@
 import { useState } from "react";
+import companyLogo from "../../assets/logo.png";
 import "./navbar.css";
 
 const navigationLinks = [
@@ -24,7 +25,7 @@ function Navbar() {
       {" "}
       <nav className="site-navbar__inner" aria-label="Main navigation">
         {/* LOGO */}
-        <img src="src/assets/logo.png" className="site_logodesign" alt="Company logo" />
+        <img src={companyLogo} className="site_logodesign" alt="Company logo" />
 
         {/* MOBILE MENU BUTTON */}
         <button className={`site-navbar__toggle ${isMenuOpen ? "is-open" : ""}`} type="button" aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isMenuOpen} aria-controls="site-navbar-links" onClick={() => setIsMenuOpen((open) => !open)}>

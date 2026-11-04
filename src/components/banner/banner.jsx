@@ -1,4 +1,11 @@
 import { useState, useEffect } from "react";
+import heroBanner from "../../assets/hero_banner.png";
+import developerAvatar from "../../assets/img-s-60.webp";
+import customerAvatars from "../../assets/banner-user-icons.png";
+import heroShape from "../../assets/hero-shape-3-1.png";
+import teamPhoto from "../../assets/banner-right-main.webp";
+import scrollDownImage from "../../assets/scroll-downs.png";
+import companyVideo from "../../assets/Lovable-20-is-SnapYT.App.mp4";
 import "./banner.css";
 
 function Banner() {
@@ -29,7 +36,7 @@ function Banner() {
       <section
         className="w-full bg-cover bg-center bg-no-repeat banner_outsection"
         style={{
-          backgroundImage: "url('/src/assets/hero_banner.png')",
+          backgroundImage: `url(${heroBanner})`,
         }}
       >
         <div className="mx-auto grid grid-cols-1 items-center gap-8 overflow-hidden p-6 sm:p-10 lg:grid-cols-2 lg:gap-12 lg:p-14 bannerinner_mainboxsection">
@@ -53,14 +60,14 @@ function Banner() {
                 <span className="banner-development__text absolute rotate_textdesign">development</span>
 
                 <div className="banner-development__avatar absolute -right-[34px] top-1/2 flex -translate-y-1/2 items-center justify-center overflow-hidden">
-                  <img src="/src/assets/img-s-60.webp" alt="Developer avatar" className="w-[70px]" />
+                  <img src={developerAvatar} alt="Developer avatar" className="w-[70px]" />
                 </div>
               </div>
             </div>
 
             {/* CUSTOMER INFORMATION */}
             <div className="flex bannerleft_laststructure banner-customer-enter">
-              <img src="/src/assets/banner-user-icons.png" alt="Customer avatars" className="w-[130px]" />
+              <img src={customerAvatars} alt="Customer avatars" className="w-[130px]" />
 
               <span className="usericontext_design">We have 24k+ customers in worldwide</span>
             </div>
@@ -68,9 +75,9 @@ function Banner() {
 
           {/* RIGHT CONTENT */}
           <div className="relative flex w-full min-w-0 items-center justify-center">
-            <img src="/src/assets/hero-shape-3-1.png" alt="" aria-hidden="true" className="bulbimg_design banner-shape-enter" />
+            <img src={heroShape} alt="" aria-hidden="true" className="bulbimg_design banner-shape-enter" />
 
-            <img src="/src/assets/banner-right-main.webp" alt="Our creative team" className="rightimg_design banner-image-enter" />
+            <img src={teamPhoto} alt="Our creative team" className="rightimg_design banner-image-enter" />
 
             {/* ANIMATED VIDEO BUTTON */}
             <button type="button" aria-label="Play company video" onClick={() => setIsVideoOpen(true)} className="group relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-[3px] border-white bg-black text-white transition-transform duration-300 hover:scale-105 sm:h-[80px] sm:w-[80px] circlebtn_animatedesign banner-video-button-enter">
@@ -103,7 +110,7 @@ function Banner() {
             </svg>
           </button>
 
-          <img src="src/assets/scroll-downs.png" className="scroll_downimgdesign" alt="" />
+          <img src={scrollDownImage} className="scroll_downimgdesign" alt="" />
         </div>
       </section>
 
@@ -118,7 +125,7 @@ function Banner() {
 
             {/* VIDEO PLAYER */}
             <video key={isVideoOpen ? "video-open" : "video-closed"} className="block aspect-video w-full bg-black" controls autoPlay playsInline preload="metadata">
-              <source src="src/assets/Lovable-20-is-SnapYT.App.mp4" type="video/mp4" />
+              <source src={companyVideo} type="video/mp4" />
               Your browser does not support HTML video.
             </video>
           </div>
