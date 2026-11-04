@@ -514,3 +514,11 @@ ACCESSIBILITY
     transition-delay: 0ms !important;
   }
 }
+
+@media (max-width: 767px) {
+  .site-navbar {
+    margin-top: -20px;
+    background: transparent;
+    box-shadow: none;
+  }
+}
