@@ -394,4 +394,38 @@
     font-size: clamp(28px, 3.2vw, 46px);
     line-height: 40px;
   }
+  .team-section__viewport {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .team-section__track {
+    display: flex;
+    flex-shrink: 0;
+    align-items: stretch;
+  }
+
+  .team-section__track .team-card {
+    flex: 0 0 calc(100% / var(--total-slides));
+    min-width: 0;
+    margin: 0;
+  }
+
+  /* Center card frame without affecting slider */
+  .team-card__frame {
+    left: 50%;
+    right: auto;
+    width: 128%;
+    transform: translateX(-50%);
+  }
+
+  /* Center member portrait */
+  .team-card__portrait img {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .team-card__details {
+    padding: 10px 60px 16px;
+  }
 }

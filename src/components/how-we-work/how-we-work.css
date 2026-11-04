@@ -180,6 +180,7 @@
 @media (max-width: 640px) {
   .how-we-work {
     padding: 34px 0 48px;
+    margin-top: 80px;
   }
 
   .how-we-work__inner {
