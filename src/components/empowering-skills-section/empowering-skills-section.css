@@ -469,6 +469,7 @@
 
   .empowering-skills__heading h2 {
     font-size: clamp(42px, 10vw, 52px);
+    padding-top: 70px;
   }
 
   .empowering-skills__intro {
