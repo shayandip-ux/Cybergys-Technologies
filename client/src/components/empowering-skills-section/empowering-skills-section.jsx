@@ -50,7 +50,10 @@ export default function EmpoweringSkillsSection() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // =========================================
   // INTERSECTION OBSERVER
+  // =========================================
+
   useEffect(() => {
     const stage = stageRef.current;
 
@@ -65,7 +68,6 @@ export default function EmpoweringSkillsSection() {
       },
       {
         threshold: 0.1,
-        rootMargin: "0px 0px -10% 0px",
       },
     );
 
@@ -74,24 +76,34 @@ export default function EmpoweringSkillsSection() {
     return () => observer.disconnect();
   }, []);
 
-  // SCROLL-BASED ACTIVE IMAGE
+  // =========================================
+  // RESPONSIVE SCROLL-BASED IMAGE SWITCHING
+  // =========================================
+
   useEffect(() => {
     const section = sectionRef.current;
     const stage = stageRef.current;
 
     if (!section || !stage) return;
 
-    let frameId = 0;
+    let frameId = null;
 
     const updateActiveIndex = () => {
-      cancelAnimationFrame(frameId);
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
 
       frameId = requestAnimationFrame(() => {
-        const scrollRange = section.offsetHeight - stage.offsetHeight;
+        const sectionHeight = section.getBoundingClientRect().height;
+        const stageHeight = stage.getBoundingClientRect().height;
+
+        const scrollRange = sectionHeight - stageHeight;
 
         if (scrollRange <= 0) return;
 
-        const progress = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / scrollRange));
+        const sectionTop = section.getBoundingClientRect().top;
+
+        const progress = Math.min(1, Math.max(0, -sectionTop / scrollRange));
 
         const nextIndex = Math.min(skillAreas.length - 1, Math.floor(progress * skillAreas.length));
 
@@ -107,10 +119,18 @@ export default function EmpoweringSkillsSection() {
 
     window.addEventListener("resize", updateActiveIndex);
 
+    const resizeObserver = typeof ResizeObserver !== "undefined" ? new ResizeObserver(updateActiveIndex) : null;
+
+    resizeObserver?.observe(section);
+    resizeObserver?.observe(stage);
+
     return () => {
-      cancelAnimationFrame(frameId);
+      if (frameId) cancelAnimationFrame(frameId);
+
       window.removeEventListener("scroll", updateActiveIndex);
       window.removeEventListener("resize", updateActiveIndex);
+
+      resizeObserver?.disconnect();
     };
   }, []);
 
@@ -130,11 +150,7 @@ export default function EmpoweringSkillsSection() {
 
           {/* INTRO */}
 
-          <p className="empowering-skills__intro">
-            Add the best talent on the market, an agile skilled management &amp; seamless
-            <br />
-            involvement
-          </p>
+          <p className="empowering-skills__intro">Add the best talent on the market, an agile skilled management &amp; seamless involvement</p>
 
           {/* SKILLS LIST */}
 

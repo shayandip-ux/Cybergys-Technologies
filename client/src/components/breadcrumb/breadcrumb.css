@@ -1,35 +1,104 @@
+/* =========================================
+   BREADCRUMB SECTION
+========================================= */
+
 .page-breadcrumb {
-  display: flex;
+  position: relative;
   width: 100%;
-  min-height: clamp(250px, 50vw, 600px);
+  min-height: 550px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 50px 5%;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
+}
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.page-breadcrumb__container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 80px 0px 0px 0px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 30px;
+}
+
+/* =========================================
+   LEFT CONTENT
+========================================= */
+
+.page-breadcrumb__content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
   flex-direction: column;
+  align-items: flex-start;
+
   justify-content: center;
-  gap: 8px;
-  padding: 18px max(24px, calc((100vw - 1400px) / 2));
-  background: url(/src/assets/hero-bg4.png) center center / cover no-repeat;
 }
 
 .page-breadcrumb__title {
+  margin: 0;
+
   color: #141414;
+
   font-family: "Teko", sans-serif;
-  font-size: clamp(42px, 5vw, 64px);
+
+  font-size: clamp(46px, 5vw, 72px);
+
   font-weight: 600;
-  line-height: 1;
+
+  line-height: 1.05;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   BREADCRUMB NAVIGATION
+========================================= */
+
+.page-breadcrumb__trail {
+  margin-top: 15px;
 }
 
 .page-breadcrumb__trail ol {
   display: flex;
   align-items: center;
+
+  flex-wrap: wrap;
+
   gap: 10px;
+
   padding: 0;
+  margin: 0;
+
   color: #727272;
-  font-size: 14px;
+
+  font-size: 15px;
+
+  font-weight: 500;
+
   list-style: none;
 }
 
 .page-breadcrumb__trail a {
   color: #141414;
+
   text-decoration: none;
+
+  transition: color 0.3s ease;
 }
 
 .page-breadcrumb__trail a:hover,
@@ -37,11 +106,164 @@
   color: #f27d2f;
 }
 
-@media (max-width: 760px) {
+/* =========================================
+   RIGHT IMAGE
+========================================= */
+
+.page-breadcrumb__image {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.page-breadcrumb__image img {
+  display: block;
+
+  width: 100%;
+
+  max-width: 560px;
+
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* =========================================
+   LARGE LAPTOP
+========================================= */
+
+@media (max-width: 1200px) {
   .page-breadcrumb {
-    min-height: 230px;
+    min-height: 480px;
+    padding: 45px 4%;
   }
+
+  .page-breadcrumb__container {
+    gap: 20px;
+  }
+
   .page-breadcrumb__title {
-    padding: 50px 0px 0px 0px;
+    font-size: clamp(44px, 5vw, 60px);
+  }
+
+  .page-breadcrumb__image img {
+    max-width: 520px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 991px) {
+  .page-breadcrumb {
+    min-height: 420px;
+    padding: 40px 30px;
+  }
+
+  .page-breadcrumb__container {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 15px;
+  }
+
+  .page-breadcrumb__title {
+    font-size: 48px;
+  }
+
+  .page-breadcrumb__image img {
+    max-width: 430px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 767px) {
+  .page-breadcrumb {
+    min-height: auto;
+
+    padding: 45px 20px 25px;
+  }
+
+  .page-breadcrumb__container {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+
+    text-align: center;
+  }
+
+  .page-breadcrumb__content {
+    align-items: center;
+  }
+
+  .page-breadcrumb__title {
+    font-size: 46px;
+
+    line-height: 1.05;
+  }
+
+  .page-breadcrumb__trail {
+    margin-top: 12px;
+  }
+
+  .page-breadcrumb__trail ol {
+    justify-content: center;
+
+    font-size: 14px;
+
+    gap: 8px;
+  }
+
+  .page-breadcrumb__image {
+    width: 100%;
+
+    margin: 0 auto;
+  }
+
+  .page-breadcrumb__image img {
+    width: 100%;
+
+    max-width: 430px;
+
+    height: auto;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .page-breadcrumb {
+    padding: 35px 15px 20px;
+  }
+
+  .page-breadcrumb__title {
+    font-size: 40px;
+  }
+
+  .page-breadcrumb__trail ol {
+    font-size: 13px;
+  }
+
+  .page-breadcrumb__image img {
+    max-width: 100%;
+  }
+}
+
+/* =========================================
+   EXTRA SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+  .page-breadcrumb__title {
+    font-size: 34px;
   }
 }

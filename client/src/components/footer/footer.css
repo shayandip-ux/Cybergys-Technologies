@@ -43,7 +43,7 @@ WHITE TOP SHAPE
 .cyber-footer__top-shape::after {
   position: absolute;
   content: "";
-  top: -70px;
+  bottom: 83%;
   left: 19.8%;
   width: 60.5%;
   height: 266px;
@@ -928,5 +928,8 @@ ACCESSIBILITY
   }
   .cyber-footer__company img {
     width: 190px;
+  }
+  .cyber-footer__top-shape::after {
+    display: none !important;
   }
 }

@@ -1,7 +1,7 @@
 .trusted-partner {
   width: 100%;
   overflow: hidden;
-  padding: clamp(52px, 6vw, 60px) 0 42px;
+  padding: clamp(0px, 0vw, 0px) 0 42px;
   background: #fff;
 }
 

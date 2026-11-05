@@ -1,11 +1,21 @@
-import Homepage from './pages/Homepage.jsx'
-import Aboutus from './pages/Aboutus.jsx'
+import Homepage from './pages/home/Homepage.jsx'
+import Aboutus from './pages/about-us/Aboutus.jsx'
+import ServicesPage from './pages/services/ServicesPage.jsx'
+import ServiceDetailsPage from './pages/service-details/ServiceDetailsPage.jsx'
 
 function App() {
-  const isAboutusPage = window.location.pathname.replace(/\/+$/, "").toLowerCase() === "/about-us";
+  const pathname = window.location.pathname.replace(/\/+$/, "").toLowerCase();
 
-  if (isAboutusPage) {
+  if (pathname === "/about-us") {
     return <Aboutus />;
+  }
+
+  if (pathname === "/services") {
+    return <ServicesPage />;
+  }
+
+  if (pathname.startsWith("/services/")) {
+    return <ServiceDetailsPage />;
   }
 
   return <Homepage />

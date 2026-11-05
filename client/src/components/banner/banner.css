@@ -469,7 +469,7 @@ RESPONSIVE DESIGN
 .scroll_downimgdesign {
   width: 200px;
   position: absolute;
-  top: -15px;
+  top: -3px;
 }
 
 .banner-scroll-indicator {
@@ -506,7 +506,7 @@ RESPONSIVE DESIGN
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 83px;
+  width: 100px;
   /* height: 122px; */
   margin-top: 0px;
   padding: 0;
@@ -651,5 +651,103 @@ RESPONSIVE DESIGN
   }
   .scroll_downimgdesign {
     top: 34px;
+  }
+}
+
+/* =========================================
+   ZOOM & LAPTOP RESPONSIVE FIX
+   Preserve existing banner design
+========================================= */
+
+/* Prevent width-related overflow */
+.banner_outsection,
+.bannerinner_mainboxsection,
+.bannerinner_mainboxsection * {
+  box-sizing: border-box;
+}
+
+/* Keep content within available screen width */
+.bannerinner_mainboxsection {
+  max-width: 100%;
+}
+
+/* Laptop and zoomed desktop screens */
+@media screen and (min-width: 1024px) and (max-width: 1400px) {
+  .bannerinner_mainboxsection {
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    width: calc(100% - 60px);
+    max-width: 1300px;
+
+    gap: 25px;
+  }
+
+  .bannerinner_mainboxsection > div {
+    min-width: 0;
+  }
+
+  .banner-title-row-enter {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .banner-right-content {
+    min-width: 0;
+  }
+
+  .rightimg_design {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* When zoom reduces the effective viewport */
+@media screen and (min-width: 768px) and (max-width: 1100px) {
+  .bannerinner_mainboxsection {
+    grid-template-columns: minmax(0, 1fr);
+
+    width: calc(100% - 60px);
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .bannerinner_mainboxsection > div {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .banner-left-content {
+    max-width: 100%;
+  }
+
+  .banner-right-content {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Prevent horizontal overflow on all screens */
+@media screen and (max-width: 767px) {
+  .bannerinner_mainboxsection {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .bannerinner_mainboxsection > div {
+    min-width: 0;
+  }
+
+  .banner-title-row-enter {
+    max-width: 100%;
+  }
+}
+
+/* Prevent banner content from being clipped vertically */
+@media screen and (min-width: 1024px) {
+  .banner_outsection {
+    height: auto;
+    min-height: 92vh;
   }
 }
