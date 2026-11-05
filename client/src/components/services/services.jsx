@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./services.css";
 import servicesBackground from "../../assets/service-background.png";
 import { services } from "./services-data.js";
@@ -35,12 +36,12 @@ export default function Services() {
             <br />
             FOR A SMARTER
           </h2>
-          <a className="services-intro__link" href="/services">
+          <Link className="services-intro__link" to="/services">
             <span>Learn More</span>
             <span className="services-intro__link-icon" aria-hidden="true">
               ↗
             </span>
-          </a>
+          </Link>
         </div>
 
         {services.map(({ slug, number, title, description, image, imageAlt }, index) => (
@@ -51,12 +52,12 @@ export default function Services() {
               <h3>{title}</h3>
               <p>{description}</p>
             </div>
-            <a className="services-card__link" href={`/services/${slug}`}>
+            <Link className="services-card__link" to={`/services/${slug}`}>
               Learn More
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="m6 3 5 5-5 5" />
               </svg>
-            </a>
+            </Link>
           </article>
         ))}
       </div>

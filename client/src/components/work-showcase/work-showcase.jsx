@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./work-showcase.css";
 import webDevelopmentImage from "../../assets/img-s-1.webp";
 import webDesignImage from "../../assets/img-s-2.webp";
@@ -70,20 +71,20 @@ export default function WorkShowcase() {
         <div className="work-showcase__grid">
           {projects.map(({ title, category, image, imageAlt }, index) => (
             <article className="work-showcase__card" key={`${title}-${index}`} style={{ "--project-index": index }}>
-              <a className="work-showcase__image-link" href="#contact" aria-label={`Learn more about ${title} project`}>
+              <Link className="work-showcase__image-link" to="#contact" aria-label={`Learn more about ${title} project`}>
                 <img className="work-showcase__image" src={image} alt={imageAlt} />
-              </a>
+              </Link>
               <h3>{title}</h3>
               <p>{category}</p>
             </article>
           ))}
         </div>
-        <a className="work-showcase__all-link" href="#contact">
+        <Link className="work-showcase__all-link" to="#contact">
           <span>View All Works</span>
           <span className="work-showcase__all-icon" aria-hidden="true">
             ↗
           </span>
-        </a>
+        </Link>
       </div>
     </section>
   );

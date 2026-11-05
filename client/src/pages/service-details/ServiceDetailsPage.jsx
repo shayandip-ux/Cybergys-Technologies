@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar.jsx";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb.jsx";
 import Achievement from "../../components/achievement-section/achievement-section.jsx";
@@ -195,12 +196,12 @@ export default function ServiceDetailsPage() {
               <p className="sd-hero__description">Your website is more than a digital presence. It is your brand's first impression. We combine creativity, technology and strategy to build experiences that help your business stand out.</p>
 
               <div className="sd-hero__actions">
-                <a href="/contact" className="sd-button sd-button--orange">
+                <Link to="/#quick-projects" className="sd-button sd-button--orange">
                   Let's Discuss Your Project <span>↗</span>
-                </a>
-                <a href="#sd-services" className="sd-button sd-button--link">
+                </Link>
+                <Link to="#sd-services" className="sd-button sd-button--link">
                   Explore our services <span>↓</span>
-                </a>
+                </Link>
               </div>
 
               <div className="sd-hero__meta">
@@ -304,9 +305,9 @@ export default function ServiceDetailsPage() {
                       ))}
                     </ul>
 
-                    <a href="/contact" className="sd-text-link">
+                    <Link to="/#quick-projects" className="sd-text-link">
                       Discuss your project <span>↗</span>
-                    </a>
+                    </Link>
                   </div>
                 </article>
               ))}
@@ -361,9 +362,9 @@ export default function ServiceDetailsPage() {
                   <span>Let's make it happen.</span>
                 </h2>
                 <p>Tell us what you're planning. We'll help turn your idea into a thoughtful, effective digital experience.</p>
-                <a href="/contact" className="sd-button sd-button--orange">
+                <Link to="/#quick-projects" className="sd-button sd-button--orange">
                   Start a Conversation <span>↗</span>
-                </a>
+                </Link>
               </div>
               <div className="sd-cta__graphic" aria-hidden="true">
                 <div className="sd-cta__graphic-inner">

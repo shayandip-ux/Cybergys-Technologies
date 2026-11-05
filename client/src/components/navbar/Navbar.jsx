@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import companyLogo from "../../assets/logo.png";
 import "./navbar.css";
 
@@ -13,15 +14,16 @@ const navigationLinks = [
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const currentPath = pathname.replace(/\/+$/, "").toLowerCase() || "/";
 
-  const pathname = window.location.pathname.replace(/\/+$/, "").toLowerCase();
-  const [activeHref, setActiveHref] = useState(
-    pathname === "/about-us" ? "/about-us" : pathname.startsWith("/services") ? "/services" : "/",
-  );
-
-  const handleLinkClick = (href) => {
-    setActiveHref(href);
+  const handleLinkClick = () => {
     setIsMenuOpen(false);
+  };
+
+  const isActive = (href) => {
+    if (href === "/services") return currentPath.startsWith("/services");
+    return currentPath === href;
   };
 
   const toggleMenu = () => {
@@ -32,18 +34,18 @@ function Navbar() {
     <header className="site-navbar">
       <nav className="site-navbar__inner" aria-label="Main navigation">
         {/* LOGO */}
-        <a href="/" className="site-navbar__logo">
+        <Link to="/" className="site-navbar__logo">
           <img src={companyLogo} className="site_logodesign" alt="Cybergy Technologies" />
-        </a>
+        </Link>
 
         {/* NAVIGATION MENU */}
         <div className={isMenuOpen ? "site-navbar__menu is-open" : "site-navbar__menu"} id="site-navbar-links">
           <ul className="site-navbar__links">
             {navigationLinks.map((item, index) => (
               <li key={item.label} style={{ "--link-index": index }}>
-                <a href={item.href} className={activeHref === item.href ? "active" : ""} aria-current={activeHref === item.href ? "page" : undefined} onClick={() => handleLinkClick(item.href)}>
+                <Link to={item.href} className={isActive(item.href) ? "active" : ""} aria-current={isActive(item.href) ? "page" : undefined} onClick={handleLinkClick}>
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -64,13 +66,13 @@ function Navbar() {
           </a>
 
           {/* MOBILE CTA */}
-          <a href="/#quick-projects" className="site-navbar__cta mobile-cta" onClick={() => handleLinkClick("/#quick-projects")}>
+          <Link to="/#quick-projects" className="site-navbar__cta mobile-cta" onClick={handleLinkClick}>
             <span>Get a Quote</span>
 
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* RIGHT ACTIONS */}
@@ -91,13 +93,13 @@ function Navbar() {
           </a>
 
           {/* DESKTOP CTA */}
-          <a href="/#quick-projects" className="site-navbar__cta desktop-cta" onClick={() => handleLinkClick("/#quick-projects")}>
+          <Link to="/#quick-projects" className="site-navbar__cta desktop-cta" onClick={handleLinkClick}>
             <span>Get a Quote</span>
 
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M7 17L17 7M8 7h9v9" />
             </svg>
-          </a>
+          </Link>
 
           {/* MOBILE HAMBURGER */}
           <button type="button" className={isMenuOpen ? "site-navbar__toggle is-open" : "site-navbar__toggle"} aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isMenuOpen} aria-controls="site-navbar-links" onClick={toggleMenu}>

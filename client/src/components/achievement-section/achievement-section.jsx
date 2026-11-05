@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 import floatingPerson from "../../assets/img-s-14.webp";
 import teamImage from "../../assets/img-s-9.webp";
@@ -86,13 +87,13 @@ export default function Achievement() {
         </p>
 
         {/* CTA BUTTON */}
-        <a href="/#quick-projects" className="achievement-button">
+        <Link to="/#quick-projects" className="achievement-button">
           <span>Let's Get Connected</span>
 
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M5 12H19M12 5L19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </a>
+        </Link>
       </div>
 
       {/* PURPLE FLOATING DOT */}

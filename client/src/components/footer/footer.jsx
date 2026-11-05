@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import footerRibbon from "../../assets/img-s-28.webp";
 import companyLogo from "../../assets/logo-1.png";
 import facebookIcon from "../../assets/facebook.png";
@@ -144,10 +145,10 @@ export default function Footer() {
             <ul>
               {quickLinks.map(({ label, href }) => (
                 <li key={label}>
-                  <a href={href}>
+                  <Link to={href}>
                     <span className="cyber-footer__chevron"></span>
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

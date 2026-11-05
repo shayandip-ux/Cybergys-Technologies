@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import aboutShape from "../../assets/img-s-66.webp";
 import aboutImage from "../../assets/img-s-4.webp";
 import codeImage from "../../assets/code-1.png";
@@ -81,11 +82,11 @@ export default function AboutUs() {
 
           <p>Our expertise spans a spectrum of services, including Web development, Web design, Application development, Digital marketing, BPO/KPO and Customer support services. Specializing in Web development, our professionals bring innovation and expertise to every project.</p>
 
-          <a className="explore_btndesign" href="/about-us" aria-label="Explore more about us">
+          <Link className="explore_btndesign" to="/about-us" aria-label="Explore more about us">
             Explore Us
             <br />
             More
-          </a>
+          </Link>
         </div>
       </div>
 

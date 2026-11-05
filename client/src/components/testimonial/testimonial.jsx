@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./testimonial.css";
 
 const testimonials = [
@@ -101,13 +102,13 @@ export default function TrustedTestimonials() {
             <br className="desktop-only" />a brand of bldend
           </p>
 
-          <a href="#about" className="trusted-testimonials__explore">
+          <Link to="#about" className="trusted-testimonials__explore">
             <span>
               Explore Us
               <br />
               More
             </span>
-          </a>
+          </Link>
         </div>
 
         {/* RIGHT CONTENT */}

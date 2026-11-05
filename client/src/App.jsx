@@ -1,24 +1,45 @@
-import Homepage from './pages/home/Homepage.jsx'
-import Aboutus from './pages/about-us/Aboutus.jsx'
-import ServicesPage from './pages/services/ServicesPage.jsx'
-import ServiceDetailsPage from './pages/service-details/ServiceDetailsPage.jsx'
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Homepage from "./pages/home/Homepage.jsx";
+import Aboutus from "./pages/about-us/Aboutus.jsx";
+import ServicesPage from "./pages/services/ServicesPage.jsx";
+import ServiceDetailsPage from "./pages/service-details/ServiceDetailsPage.jsx";
+
+function RouteScrollManager() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      if (hash) {
+        const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (target) {
+          target.scrollIntoView();
+          return;
+        }
+      }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, hash]);
+
+  return null;
+}
 
 function App() {
-  const pathname = window.location.pathname.replace(/\/+$/, "").toLowerCase();
-
-  if (pathname === "/about-us") {
-    return <Aboutus />;
-  }
-
-  if (pathname === "/services") {
-    return <ServicesPage />;
-  }
-
-  if (pathname.startsWith("/services/")) {
-    return <ServiceDetailsPage />;
-  }
-
-  return <Homepage />
+  return (
+    <>
+      <RouteScrollManager />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/about-us" element={<Aboutus />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:slug" element={<ServiceDetailsPage />} />
+        <Route path="*" element={<Homepage />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;

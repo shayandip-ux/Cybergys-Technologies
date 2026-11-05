@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import teamImage from "../../assets/technologies-right.avif";
 import html5Image from "../../assets/html5.png";
 import cssImage from "../../assets/css.png";
@@ -71,12 +72,12 @@ export default function Technologies() {
       </div>
 
       <div className="technologies-section__content">
-        <a className="technologies-section__label" href="#technologies">
+        <Link className="technologies-section__label" to="#technologies">
           <span>Technologies We Use</span>
           <span className="technologies-section__arrow" aria-hidden="true">
             →
           </span>
-        </a>
+        </Link>
 
         <h2 className="technologies-section__title" id="technologies-title">
           We use technology that

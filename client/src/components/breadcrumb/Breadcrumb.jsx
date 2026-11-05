@@ -1,4 +1,5 @@
 import "./breadcrumb.css";
+import { Link } from "react-router-dom";
 
 import breadcrumbBg from "../../assets/breadcum-background-svg.svg";
 import breadcrumbImage from "../../assets/modern_teamwork_business_infographic.png";
@@ -16,7 +17,7 @@ export default function Breadcrumb({ title }) {
           <nav className="page-breadcrumb__trail" aria-label="Breadcrumb">
             <ol>
               <li>
-                <a href="/">Home</a>
+                <Link to="/">Home</Link>
               </li>
 
               <li aria-hidden="true">/</li>
