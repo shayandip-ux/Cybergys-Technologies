@@ -34,7 +34,7 @@ const projects = [
   },
 ];
 
-export default function WorkShowcase() {
+export default function WorkShowcase({ showAllLink = true }) {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
 
@@ -57,7 +57,7 @@ export default function WorkShowcase() {
   }, []);
 
   return (
-    <section ref={sectionRef} className={`work-showcase${isVisible ? " is-visible" : ""}`} style={{ "--work-showcase-background": `url("${showcaseBackground}")` }} aria-labelledby="work-showcase-title">
+    <section ref={sectionRef} className={`work-showcase${isVisible ? " is-visible" : ""}`} id="portfolio" style={{ "--work-showcase-background": `url("${showcaseBackground}")` }} aria-labelledby="work-showcase-title">
       <div className="work-showcase__inner">
         <header className="work-showcase__heading">
           <span className="work-showcase__eyebrow">WORK SHOWCASE</span>
@@ -71,7 +71,7 @@ export default function WorkShowcase() {
         <div className="work-showcase__grid">
           {projects.map(({ title, category, image, imageAlt }, index) => (
             <article className="work-showcase__card" key={`${title}-${index}`} style={{ "--project-index": index }}>
-              <Link className="work-showcase__image-link" to="#contact" aria-label={`Learn more about ${title} project`}>
+              <Link className="work-showcase__image-link" to="/#quick-projects" aria-label={`Learn more about ${title} project`}>
                 <img className="work-showcase__image" src={image} alt={imageAlt} />
               </Link>
               <h3>{title}</h3>
@@ -79,12 +79,14 @@ export default function WorkShowcase() {
             </article>
           ))}
         </div>
-        <Link className="work-showcase__all-link" to="#contact">
-          <span>View All Works</span>
-          <span className="work-showcase__all-icon" aria-hidden="true">
-            ↗
-          </span>
-        </Link>
+        {showAllLink && (
+          <Link className="work-showcase__all-link" to="/portfolio">
+            <span>View All Works</span>
+            <span className="work-showcase__all-icon" aria-hidden="true">
+              ↗
+            </span>
+          </Link>
+        )}
       </div>
     </section>
   );

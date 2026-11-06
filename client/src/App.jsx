@@ -4,6 +4,9 @@ import Homepage from "./pages/home/Homepage.jsx";
 import Aboutus from "./pages/about-us/Aboutus.jsx";
 import ServicesPage from "./pages/services/ServicesPage.jsx";
 import ServiceDetailsPage from "./pages/service-details/ServiceDetailsPage.jsx";
+import TechnologiesPage from "./pages/technologies/TechnologiesPage.jsx";
+import PortfolioPage from "./pages/portfolio/PortfolioPage.jsx";
+import ContactUsPage from "./pages/contact-us/ContactUsPage.jsx";
 
 function RouteScrollManager() {
   const { pathname, hash } = useLocation();
@@ -36,6 +39,9 @@ function App() {
         <Route path="/about-us" element={<Aboutus />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/:slug" element={<ServiceDetailsPage />} />
+        <Route path="/technologies" element={<TechnologiesPage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/contact-us" element={<ContactUsPage />} />
         <Route path="*" element={<Homepage />} />
       </Routes>
     </>

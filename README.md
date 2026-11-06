@@ -15,11 +15,13 @@ npm install
 
 ## Development
 
-Create the single local environment file from the template (the defaults use the standard development ports):
+Optionally create a local environment file from the template if you want to override the default development ports or API URL:
 
 ```sh
 cp .env.example .env
 ```
+
+Then start both services:
 
 ```sh
 npm run dev

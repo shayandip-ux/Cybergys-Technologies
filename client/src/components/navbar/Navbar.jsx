@@ -7,9 +7,9 @@ const navigationLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
   { label: "Services", href: "/services" },
-  { label: "Technologies", href: "/#technologies" },
-  { label: "Portfolio", href: "/#portfolio" },
-  { label: "Contact Us", href: "/#quick-projects" },
+  { label: "Technologies", href: "/technologies" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 function Navbar() {

@@ -1,6 +1,10 @@
 import { spawn } from 'node:child_process'
 
-const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm'
+const npmCli = process.env.npm_execpath
+if (!npmCli) {
+  throw new Error('Run this script through npm with "npm run dev".')
+}
+
 const services = [
   ['client', ['run', 'dev', '--workspace=client']],
   ['server', ['run', 'dev', '--workspace=server']],
@@ -9,7 +13,7 @@ const services = [
 let stopping = false
 
 const children = services.map(([name, args]) => {
-  const child = spawn(npmCommand, args, { stdio: 'inherit' })
+  const child = spawn(process.execPath, [npmCli, ...args], { stdio: 'inherit' })
   child.on('exit', (code) => {
     if (code && !stopping) {
       console.error(`${name} exited with code ${code}`)

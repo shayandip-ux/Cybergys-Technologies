@@ -53,8 +53,10 @@ export default function Footer() {
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about-us" },
     { label: "Services", href: "/services" },
+    { label: "Technologies", href: "/technologies" },
+    { label: "Portfolio", href: "/portfolio" },
     { label: "Career", href: "/#team" },
-    { label: "Contact Us", href: "/#quick-projects" },
+    { label: "Contact Us", href: "/contact-us" },
   ];
 
   const services = ["Web Designing", "Web Development", "App Development", "eCommerce Support Service", "Digital Marketing"];

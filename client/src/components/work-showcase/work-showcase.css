@@ -1,7 +1,7 @@
 .work-showcase {
   position: relative;
   width: 100%;
-  margin-top: -24px;
+  margin: -24px 0px 40px 0px;
   padding: 50px 0 42px;
   overflow: hidden;
 }
