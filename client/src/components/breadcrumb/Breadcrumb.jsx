@@ -1,12 +1,20 @@
 import "./breadcrumb.css";
 import { Link } from "react-router-dom";
 
-import breadcrumbBg from "../../assets/breadcum-background-svg.svg";
-import breadcrumbImage from "../../assets/modern_teamwork_business_infographic.png";
+import breadcrumbBg from "../../assets/new-breadcumarea.png";
 
 export default function Breadcrumb({ title }) {
   return (
-    <section className="page-breadcrumb" aria-labelledby="page-breadcrumb-title" style={{ backgroundImage: `url(${breadcrumbBg})` }}>
+    <section
+      className="page-breadcrumb"
+      aria-labelledby="page-breadcrumb-title"
+      style={{
+        backgroundImage: `url(${breadcrumbBg})`,
+      }}
+    >
+      {/* DARK OVERLAY */}
+      <div className="page-breadcrumb__overlay"></div>
+
       <div className="page-breadcrumb__container">
         {/* LEFT CONTENT */}
         <div className="page-breadcrumb__content">
@@ -25,11 +33,6 @@ export default function Breadcrumb({ title }) {
               <li aria-current="page">{title}</li>
             </ol>
           </nav>
-        </div>
-
-        {/* RIGHT IMAGE */}
-        <div className="page-breadcrumb__image">
-          <img src={breadcrumbImage} alt="Business teamwork and development infographic" />
         </div>
       </div>
     </section>

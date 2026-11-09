@@ -80,7 +80,7 @@ function Banner() {
             <img src={teamPhoto} alt="Our creative team" className="rightimg_design banner-image-enter" />
 
             {/* ANIMATED VIDEO BUTTON */}
-            <button type="button" aria-label="Play company video" onClick={() => setIsVideoOpen(true)} className="group relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-[3px] border-white bg-black text-white transition-transform duration-300 hover:scale-105 sm:h-[80px] sm:w-[80px] circlebtn_animatedesign banner-video-button-enter">
+            <button type="button" aria-label="Play company video" onClick={() => setIsVideoOpen(true)} className="group cursor-pointer relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-[3px] border-white bg-black text-white transition-transform duration-300 hover:scale-105 sm:h-[80px] sm:w-[80px] circlebtn_animatedesign banner-video-button-enter">
               <span className="absolute inset-0 rounded-full border-2 border-white animate-pulse-ring" />
 
               <span className="absolute inset-0 rounded-full border-2 border-white animate-pulse-ring animation-delay-700" />
