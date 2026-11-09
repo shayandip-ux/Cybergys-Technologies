@@ -592,15 +592,13 @@
 
 @media (max-width: 700px) {
   .empowering-skills {
-    height: 520vh;
-    margin-top: 90px;
+    margin-top: 0px;
   }
 
   .empowering-skills__stage {
     height: 100vh;
     height: 100svh;
-
-    min-height: 680px;
+    min-height: 940px;
   }
 
   .empowering-skills__inner {

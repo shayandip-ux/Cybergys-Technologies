@@ -4,6 +4,13 @@ import Achievement from "../../components/achievement-section/achievement-sectio
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb.jsx";
 import Footer from "../../components/footer/footer.jsx";
 import Navbar from "../../components/navbar/Navbar.jsx";
+import callIcon from "../../assets/orange-call.png";
+import emailIcon from "../../assets/orange-email.png";
+import locationIcon from "../../assets/orange-maps-and-flags.png";
+import personIcon from "../../assets/person.png";
+import formEmailIcon from "../../assets/black-email.png";
+import phoneIcon from "../../assets/telephone.png";
+import messageIcon from "../../assets/chatting.png";
 
 import "./contact-us-page.css";
 
@@ -56,7 +63,7 @@ export default function ContactUsPage() {
                   {/* Phone */}
                   <div className="contact-info-item">
                     <div className="contact-info-icon">
-                      <img src="/src/assets/orange-call.png"></img>
+                      <img src={callIcon} alt="" />
                     </div>
 
                     <div className="contact-info-text">
@@ -68,7 +75,7 @@ export default function ContactUsPage() {
                   {/* Email */}
                   <div className="contact-info-item">
                     <div className="contact-info-icon">
-                      <img src="/src/assets/orange-email.png"></img>
+                      <img src={emailIcon} alt="" />
                     </div>
 
                     <div className="contact-info-text">
@@ -80,7 +87,7 @@ export default function ContactUsPage() {
                   {/* Address */}
                   <div className="contact-info-item">
                     <div className="contact-info-icon">
-                      <img src="/src/assets/orange-maps-and-flags.png"></img>
+                      <img src={locationIcon} alt="" />
                     </div>
 
                     <div className="contact-info-text">
@@ -102,7 +109,7 @@ export default function ContactUsPage() {
                       </label>
 
                       <div className="contact-input-wrapper">
-                        <img src="/src/assets/person.png" className="w-[20px]"></img>
+                        <img src={personIcon} className="w-[20px]" alt="" />
 
                         <input type="text" id="contact-fullname" name="fullName" placeholder="Enter your full name" value={formData.fullName} onChange={handleChange} required />
                       </div>
@@ -115,7 +122,7 @@ export default function ContactUsPage() {
                       </label>
 
                       <div className="contact-input-wrapper">
-                        <img src="/src/assets/black-email.png" className="w-[20px]"></img>
+                        <img src={formEmailIcon} className="w-[20px]" alt="" />
 
                         <input type="email" id="contact-email" name="email" placeholder="Enter your email address" value={formData.email} onChange={handleChange} required />
                       </div>
@@ -128,7 +135,7 @@ export default function ContactUsPage() {
                       </label>
 
                       <div className="contact-input-wrapper">
-                        <img src="/src/assets/telephone.png" className="w-[20px]"></img>
+                        <img src={phoneIcon} className="w-[20px]" alt="" />
 
                         <input type="tel" id="contact-phone" name="phone" placeholder="Enter your phone number" value={formData.phone} onChange={handleChange} required />
                       </div>
@@ -166,7 +173,7 @@ export default function ContactUsPage() {
                       </label>
 
                       <div className="contact-input-wrapper">
-                        <img src="/src/assets/chatting.png" className="w-[20px]"></img>
+                        <img src={messageIcon} className="w-[20px]" alt="" />
 
                         <textarea id="contact-message" name="message" placeholder="Write your message here..." value={formData.message} onChange={handleChange} required />
                       </div>

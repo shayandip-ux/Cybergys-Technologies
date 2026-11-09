@@ -5,6 +5,9 @@ import emilyImage from "../../assets/team-3-1 1.png";
 import sophiaImage from "../../assets/team-3-1 2.png";
 import teamCardFrame from "../../assets/Abstract-Blue-Gradient-UI-Card-with-shadow.png";
 import teamBackground from "../../assets/service-background.png";
+import linkedinIcon from "../../assets/white-linkedin.png";
+import githubIcon from "../../assets/white-github.png";
+import emailIcon from "../../assets/white-email.png";
 
 import "./team.css";
 
@@ -214,20 +217,17 @@ export default function Team() {
                   <div className="team-card__socials" aria-label={`${name} social links`}>
                     {/* LinkedIn */}
                     <SocialIcon label="LinkedIn">
-                      {/* <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M6.5 8.5v9M6.5 6v.1M10.5 17.5v-9h3.7v1.3c.6-.9 1.5-1.5 2.8-1.5 2.1 0 3.5 1.3 3.5 4v5.2" />
-                      </svg> */}
-                      <img src="/src/assets/white-linkedin.png"></img>
+                      <img src={linkedinIcon} alt="" />
                     </SocialIcon>
 
                     {/* GitHub */}
                     <SocialIcon label="GitHub">
-                      <img src="/src/assets/white-github.png"></img>
+                      <img src={githubIcon} alt="" />
                     </SocialIcon>
 
                     {/* Email */}
                     <SocialIcon label="Email">
-                      <img src="/src/assets/white-email.png"></img>
+                      <img src={emailIcon} alt="" />
                     </SocialIcon>
                   </div>
                 </div>
