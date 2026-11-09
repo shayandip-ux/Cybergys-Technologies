@@ -56,7 +56,7 @@ function Banner() {
 
               <h1 className="banner-and ml-3 shrink-0 fstleftheading_textdesign">AND</h1>
 
-              <div className="banner-development relative flex shrink-0 items-center justify-center rounded-[30px] bg-[#C8F31D] sm:h-[110px] sm:w-[110px] greenbox_Section">
+              <div className="banner-development relative flex shrink-0 items-center justify-center rounded-[30px] bg-[#C8F31D] sm:h-[100px] sm:w-[100px] greenbox_Section">
                 <span className="banner-development__text absolute rotate_textdesign">development</span>
 
                 <div className="banner-development__avatar absolute -right-[34px] top-1/2 flex -translate-y-1/2 items-center justify-center overflow-hidden">

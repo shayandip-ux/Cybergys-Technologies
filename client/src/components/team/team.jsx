@@ -214,25 +214,20 @@ export default function Team() {
                   <div className="team-card__socials" aria-label={`${name} social links`}>
                     {/* LinkedIn */}
                     <SocialIcon label="LinkedIn">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                      {/* <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M6.5 8.5v9M6.5 6v.1M10.5 17.5v-9h3.7v1.3c.6-.9 1.5-1.5 2.8-1.5 2.1 0 3.5 1.3 3.5 4v5.2" />
-                      </svg>
+                      </svg> */}
+                      <img src="/src/assets/white-linkedin.png"></img>
                     </SocialIcon>
 
                     {/* GitHub */}
                     <SocialIcon label="GitHub">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8.2 19.5c-4.2 1.3-4.2-2.1-5.9-2.5m11.8 5v-3.2a2.8 2.8 0 0 0-.8-2.2c2.8-.3 5.7-1.4 5.7-6.3a4.9 4.9 0 0 0-1.3-3.4 4.5 4.5 0 0 0-.1-3.4s-1.1-.3-3.5 1.3a12 12 0 0 0-6.4 0C5.3 3.2 4.2 3.5 4.2 3.5a4.5 4.5 0 0 0-.1 3.4 4.9 4.9 0 0 0-1.3 3.4c0 4.9 2.9 6 5.7 6.3a2.8 2.8 0 0 0-.8 2.2V22" />
-                      </svg>
+                      <img src="/src/assets/white-github.png"></img>
                     </SocialIcon>
 
                     {/* Email */}
                     <SocialIcon label="Email">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="3.5" y="5.5" width="17" height="13" rx="1.5" />
-
-                        <path d="m4.5 7 7.5 6 7.5-6" />
-                      </svg>
+                      <img src="/src/assets/white-email.png"></img>
                     </SocialIcon>
                   </div>
                 </div>

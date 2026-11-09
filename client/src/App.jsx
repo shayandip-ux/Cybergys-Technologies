@@ -7,6 +7,7 @@ import ServiceDetailsPage from "./pages/service-details/ServiceDetailsPage.jsx";
 import TechnologiesPage from "./pages/technologies/TechnologiesPage.jsx";
 import PortfolioPage from "./pages/portfolio/PortfolioPage.jsx";
 import ContactUsPage from "./pages/contact-us/ContactUsPage.jsx";
+import PageLoader from "./components/page-loader/PageLoader.jsx";
 
 function RouteScrollManager() {
   const { pathname, hash } = useLocation();
@@ -44,6 +45,7 @@ function App() {
         <Route path="/contact-us" element={<ContactUsPage />} />
         <Route path="*" element={<Homepage />} />
       </Routes>
+      <PageLoader />
     </>
   );
 }
