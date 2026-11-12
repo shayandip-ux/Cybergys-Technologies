@@ -76,6 +76,29 @@ The following content endpoints are ready for the client to consume when it is m
 
 The API keeps its public site content in `server/src/content/site-content.js`. Contact form submissions are persisted to PostgreSQL.
 
+## CMS behaviour
+
+The first request to each content endpoint seeds its fallback content into PostgreSQL's `app_content` table. The existing admin content screens edit that database-backed content; records with `status` set to `draft`, `archived`, or `unpublished`, `active: false`, or an out-of-range publication date are excluded from public collection responses.
+
+The public React sections use the shared API client and read `/api/banner`, `/api/services`, `/api/technologies`, and `/api/portfolio`. An optional `VITE_API_BASE_URL` may be used in deployments where the API is hosted on a different origin.
+
+Contact submissions use `contact_submissions`. The initialization is non-destructive and adds `status`, `internal_notes`, and `updated_at` where absent. Admin tooling can query and update them through:
+
+- `GET /api/admin/contacts?page=1&pageSize=20&search=&status=`
+- `PATCH /api/admin/contacts` with `{ "id", "status", "internalNotes" }`
+
+Admin access uses an HTTP-only signed session cookie. Configure `AUTH_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` in `server/.env` to create the first `super_admin` on its first successful login. Rotate/remove `ADMIN_PASSWORD` after bootstrap.
+
+## Seed the current frontend content
+
+After PostgreSQL is running, seed the existing banner, services, portfolio, technologies, and contact settings into the relational CMS tables:
+
+```sh
+npm run seed:cms --workspace=server
+```
+
+The seed is idempotent: it uses unique slugs and only inserts missing rows. It never overwrites records that were changed in the admin panel.
+
 ## Other scripts
 
 - `npm run build` — build the client and Next.js API.

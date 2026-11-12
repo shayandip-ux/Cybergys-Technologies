@@ -1,0 +1,3 @@
+{
+  "/api/cms/pages/[slug]/publish/route": "app/api/cms/pages/[slug]/publish/route.js"
+}

@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronRight, FolderOpen, Handshake, LayoutDashboard, Settings, ShieldCheck, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, ChevronRight, FolderOpen, History, LayoutDashboard, MonitorCog, Settings, ShieldCheck } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
@@ -9,31 +9,18 @@ const Sidebar = ({ isOpen, onToggle }) => {
   const location = useLocation();
   const isContentRoute = location.pathname.startsWith("/admin/content/");
   const isAdminRoute = location.pathname.startsWith("/admin/users");
-  const isConfigurationRoute = location.pathname.startsWith("/admin/configuration/");
-  const isPartnersTrackingRoute = location.pathname.startsWith("/admin/partners-tracking/");
   const [contentOpen, setContentOpen] = useState(isContentRoute);
   const [adminOpen, setAdminOpen] = useState(isAdminRoute);
-  const [configurationOpen, setConfigurationOpen] = useState(isConfigurationRoute);
-  const [partnersTrackingOpen, setPartnersTrackingOpen] = useState(isPartnersTrackingRoute);
   const contentSections = [
     { label: "Banner", path: "banner" },
     { label: "Services", path: "services" },
     { label: "Testimonials", path: "testimonials" },
     { label: "Technologies", path: "technologies" },
     { label: "Portfolio", path: "portfolio" },
-    { label: "Contact", path: "contact" },
-  ];
-  const configurationSections = [
-    { label: "Regions", path: "regions" },
-    { label: "Site Settings", path: "site-settings" },
-    { label: "Navigation", path: "navigation" },
-    { label: "Home Page", path: "home-page" },
-  ];
-  const partnersTrackingSections = [
-    { label: "Partners", path: "partners" },
-    { label: "Tracking Scripts", path: "tracking-scripts" },
-    { label: "Partner Enquiries", path: "partner-enquiries" },
-    { label: "Partner Form", path: "partner-form" },
+    { label: "Team", path: "team" },
+    { label: "FAQs", path: "faqs" },
+    { label: "Contact settings", path: "contact" },
+    { label: "Enquiries", path: "enquiries" },
   ];
 
   return (
@@ -44,6 +31,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
 
       <nav className="mt-[18px] min-h-0 flex-1 space-y-2 overflow-y-auto px-[10px] mr-[-10px]">
         <SidebarItem icon={LayoutDashboard} label="Dashboard" to="/admin" />
+        <SidebarItem icon={MonitorCog} label="Visual CMS" to="/admin/cms" />
+        <SidebarItem icon={History} label="Activity log" to="/admin/activity" />
         <div>
           <button type="button" aria-expanded={adminOpen} aria-controls="admin-submenu" className={["flex h-[49px] w-full cursor-pointer items-center gap-3 rounded-l-[40px] px-3 text-left text-[12px] font-medium transition lg:text-[14px]", isAdminRoute ? "bg-[#fffafb] text-[#ff7a00]" : "text-white hover:bg-white/[0.04]"].join(" ")} onClick={() => setAdminOpen((isOpen) => !isOpen)}>
             <ShieldCheck size={21} strokeWidth={isAdminRoute ? 2.5 : 2} className={["h-[21px] w-[21px] shrink-0 lg:h-6 lg:w-6", isAdminRoute ? "text-[#ff7a00]" : "text-white"].join(" ")} />
@@ -72,7 +61,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
             </div>
           )}
         </div>
-        <div>
+        {/* Configuration navigation is temporarily hidden. Keep its routes available for direct links. */}
+        {/* <div>
           <button type="button" aria-expanded={configurationOpen} aria-controls="configuration-submenu" className={["flex h-[49px] w-full cursor-pointer items-center gap-3 rounded-l-[40px] px-3 text-left text-[12px] font-medium transition lg:text-[14px]", isConfigurationRoute ? "bg-[#fffafb] text-[#ff7a00]" : "text-white hover:bg-white/[0.04]"].join(" ")} onClick={() => setConfigurationOpen((isOpen) => !isOpen)}>
             <SlidersHorizontal size={21} strokeWidth={isConfigurationRoute ? 2.5 : 2} className={["h-[21px] w-[21px] shrink-0 lg:h-6 lg:w-6", isConfigurationRoute ? "text-[#ff7a00]" : "text-white"].join(" ")} />
             <span className="flex-1">Configuration</span>
@@ -86,8 +76,9 @@ const Sidebar = ({ isOpen, onToggle }) => {
               ))}
             </div>
           )}
-        </div>
-        <div>
+        </div> */}
+        {/* Partners & Tracking navigation is temporarily hidden. Keep its routes available for direct links. */}
+        {/* <div>
           <button type="button" aria-expanded={partnersTrackingOpen} aria-controls="partners-tracking-submenu" className={["flex h-[49px] w-full cursor-pointer items-center gap-3 rounded-l-[40px] px-3 text-left text-[12px] font-medium transition lg:text-[14px]", isPartnersTrackingRoute ? "bg-[#fffafb] text-[#ff7a00]" : "text-white hover:bg-white/[0.04]"].join(" ")} onClick={() => setPartnersTrackingOpen((isOpen) => !isOpen)}>
             <Handshake size={21} strokeWidth={isPartnersTrackingRoute ? 2.5 : 2} className={["h-[21px] w-[21px] shrink-0 lg:h-6 lg:w-6", isPartnersTrackingRoute ? "text-[#ff7a00]" : "text-white"].join(" ")} />
             <span className="min-w-0 flex-1 leading-tight">Partners &amp; Tracking</span>
@@ -101,7 +92,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
               ))}
             </div>
           )}
-        </div>
+        </div> */}
         <SidebarItem icon={Settings} label="Settings" to="/admin/settings" />
       </nav>
 

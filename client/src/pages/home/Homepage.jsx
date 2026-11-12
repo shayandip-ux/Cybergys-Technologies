@@ -14,10 +14,11 @@ import Team from "../../components/team/team.jsx";
 import TrustedPartner from "../../components/trusted-partner/trusted-partner.jsx";
 import Achievement from "../../components/achievement-section/achievement-section.jsx";
 import Footer from "../../components/footer/footer.jsx";
+import { PageContentProvider } from "../../cms/PageContent.jsx";
 
 function Homepage() {
   return (
-    <>
+    <PageContentProvider page="home">
       <Navbar />
       <Banner />
       <Aboutus />
@@ -34,7 +35,7 @@ function Homepage() {
       <TrustedPartner />
       <Achievement />
       <Footer />
-    </>
+    </PageContentProvider>
   );
 }
 

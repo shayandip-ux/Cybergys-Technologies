@@ -1,0 +1,33 @@
+import { getDb } from './db.js'
+
+let ready
+const pageDefaults = [
+  ['home', 'Home', '/', 'Homepage'], ['about-us', 'About Us', '/about-us', 'Company story and team'], ['services', 'Services', '/services', 'Service overview'], ['portfolio', 'Portfolio', '/portfolio', 'Portfolio overview'], ['technologies', 'Technologies', '/technologies', 'Technology overview'], ['contact-us', 'Contact Us', '/contact-us', 'Contact page'],
+]
+const contentDefaults = {
+  home: [
+    ['about', 'eyebrow', 'text', 'About eyebrow', '1. WHO WE ARE'], ['about', 'heading_line_one', 'heading', 'About heading, line 1', 'HAVE A BRILLIANT'], ['about', 'heading_line_two', 'heading', 'About heading, line 2', 'IDEA BOOST THE'], ['about', 'highlight_growth', 'heading', 'About heading highlight: Growth', 'GROWTH'], ['about', 'highlight_development', 'heading', 'About heading highlight: Development', 'DEVELOPMENT'], ['about', 'heading_agency', 'heading', 'About heading: Agency', 'AGENCY'], ['about', 'heading_branding', 'heading', 'About heading: Branding', 'YOUR BRANDING!'], ['about', 'intro', 'richtext', 'About introduction', 'Welcome to Cybergys Technologies – Empowering Technological Excellence Since 2006.'], ['about', 'description', 'richtext', 'About description', 'Our expertise spans a spectrum of services, including Web development, Web design, Application development, Digital marketing, BPO/KPO and Customer support services. Specializing in Web development, our professionals bring innovation and expertise to every project.'], ['about', 'client_count', 'text', 'Client count', '32k+'], ['about', 'client_caption', 'richtext', 'Client caption', 'happy clients of our services'], ['about', 'cta', 'button', 'About CTA', 'Explore Us More'], ['quick-project', 'label', 'text', 'Project label', 'Have a Projects?'], ['quick-project', 'heading', 'heading', 'Project heading', 'Have A Project? Speak With Our expert.'],
+  ],
+  'about-us': [['banner', 'banner_title', 'heading', 'Banner title', 'About Us'], ['banner', 'banner_image', 'image', 'Banner image', ''], ['about', 'eyebrow', 'text', 'About eyebrow', '1. WHO WE ARE'], ['about', 'heading_line_one', 'heading', 'About heading, line 1', 'HAVE A BRILLIANT'], ['about', 'heading_line_two', 'heading', 'About heading, line 2', 'IDEA BOOST THE'], ['about', 'highlight_growth', 'heading', 'About heading highlight: Growth', 'GROWTH'], ['about', 'highlight_development', 'heading', 'About heading highlight: Development', 'DEVELOPMENT'], ['about', 'heading_agency', 'heading', 'About heading: Agency', 'AGENCY'], ['about', 'heading_branding', 'heading', 'About heading: Branding', 'YOUR BRANDING!'], ['about', 'intro', 'richtext', 'About introduction', 'Welcome to Cybergys Technologies – Empowering Technological Excellence Since 2006.'], ['about', 'description', 'richtext', 'About description', 'Our expertise spans a spectrum of services, including Web development, Web design, Application development, Digital marketing, BPO/KPO and Customer support services. Specializing in Web development, our professionals bring innovation and expertise to every project.'], ['about', 'client_count', 'text', 'Client count', '32k+'], ['about', 'client_caption', 'richtext', 'Client caption', 'happy clients of our services'], ['about', 'cta', 'button', 'About CTA', 'Explore Us More']],
+  services: [['banner', 'banner_title', 'heading', 'Banner title', 'Our Services'], ['banner', 'banner_image', 'image', 'Banner image URL', '']],
+  portfolio: [['banner', 'banner_title', 'heading', 'Banner title', 'Our Portfolio'], ['banner', 'banner_image', 'image', 'Banner image URL', '']],
+  technologies: [['banner', 'banner_title', 'heading', 'Banner title', 'Technologies'], ['banner', 'banner_image', 'image', 'Banner image URL', '']],
+  'contact-us': [['banner', 'banner_title', 'heading', 'Banner title', 'Contact Us'], ['banner', 'banner_image', 'image', 'Banner image URL', '']],
+}
+
+export async function ensureVisualCms() {
+  ready ??= (async () => {
+    const db = getDb()
+    await db.query(`CREATE EXTENSION IF NOT EXISTS pgcrypto;
+      CREATE TABLE IF NOT EXISTS cms_pages (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), page_name TEXT NOT NULL, page_slug TEXT UNIQUE NOT NULL, page_url TEXT NOT NULL, description TEXT, seo_title TEXT, seo_description TEXT, is_active BOOLEAN NOT NULL DEFAULT TRUE, created_at TIMESTAMPTZ DEFAULT NOW(), updated_at TIMESTAMPTZ DEFAULT NOW());
+      CREATE TABLE IF NOT EXISTS cms_page_content (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), page_id UUID NOT NULL REFERENCES cms_pages(id) ON DELETE CASCADE, section_key TEXT NOT NULL, content_key TEXT NOT NULL, content_type TEXT NOT NULL, label TEXT NOT NULL, draft_value JSONB NOT NULL DEFAULT '{}'::jsonb, published_value JSONB NOT NULL DEFAULT '{}'::jsonb, is_editable BOOLEAN NOT NULL DEFAULT TRUE, sort_order INTEGER DEFAULT 0, updated_by UUID REFERENCES admin_users(id) ON DELETE SET NULL, created_at TIMESTAMPTZ DEFAULT NOW(), updated_at TIMESTAMPTZ DEFAULT NOW(), UNIQUE(page_id, section_key, content_key));
+      CREATE TABLE IF NOT EXISTS cms_content_revisions (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), page_content_id UUID NOT NULL REFERENCES cms_page_content(id) ON DELETE CASCADE, content_value JSONB NOT NULL, revision_number INTEGER NOT NULL, changed_by UUID REFERENCES admin_users(id) ON DELETE SET NULL, change_note TEXT, created_at TIMESTAMPTZ DEFAULT NOW());`)
+    for (const [slug, name, url, description] of pageDefaults) await db.query(`INSERT INTO cms_pages (page_slug,page_name,page_url,description) VALUES ($1,$2,$3,$4) ON CONFLICT (page_slug) DO NOTHING`, [slug, name, url, description])
+    for (const [slug, entries] of Object.entries(contentDefaults)) {
+      const page = await db.query('SELECT id FROM cms_pages WHERE page_slug=$1', [slug])
+      for (const [section, key, type, label, value] of entries) await db.query(`INSERT INTO cms_page_content (page_id,section_key,content_key,content_type,label,draft_value,published_value) VALUES ($1,$2,$3,$4,$5,$6::jsonb,$6::jsonb) ON CONFLICT (page_id,content_key) DO NOTHING`, [page.rows[0].id, section, key, type, label, JSON.stringify({ value })])
+    }
+  })()
+  return ready
+}
+export async function cmsPage(slug, draft = false) { await ensureVisualCms(); const db = getDb(); const page = await db.query('SELECT * FROM cms_pages WHERE page_slug=$1 AND is_active=TRUE',[slug]); if(!page.rowCount)return null; const rows=await db.query(`SELECT id,section_key,content_key,content_type,label,${draft?'draft_value':'published_value'} AS value,updated_at FROM cms_page_content WHERE page_id=$1 AND is_editable=TRUE ORDER BY sort_order,id`,[page.rows[0].id]); return { ...page.rows[0], content: rows.rows } }

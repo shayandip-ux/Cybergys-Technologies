@@ -8,6 +8,7 @@ import teamBackground from "../../assets/service-background.png";
 import linkedinIcon from "../../assets/white-linkedin.png";
 import githubIcon from "../../assets/white-github.png";
 import emailIcon from "../../assets/white-email.png";
+import { getApi, mediaUrl } from "../../lib/api.js";
 
 import "./team.css";
 
@@ -44,6 +45,7 @@ export default function Team() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
   const [visibleCount, setVisibleCount] = useState(3);
+  const [members, setMembers] = useState(teamMembers);
 
   const [currentIndex, setCurrentIndex] = useState(3);
 
@@ -53,7 +55,18 @@ export default function Team() {
 
   const trackRef = useRef(null);
 
-  const teamLength = teamMembers.length;
+  const teamLength = members.length;
+
+  useEffect(() => {
+    const controller = new AbortController();
+    getApi("/api/teams", { signal: controller.signal }).then((data) => {
+      if (!Array.isArray(data) || !data.length) return;
+      setMembers(data.map((member, index) => ({
+        name: member.name, role: member.designation ?? member.department ?? "Team member", description: member.short_bio ?? member.bio ?? "", image: mediaUrl(member.profile_image) ?? teamMembers[index % teamMembers.length].image,
+      })));
+    }).catch((error) => { if (error.name !== "AbortError") console.warn("Team content is unavailable."); });
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -96,11 +109,11 @@ export default function Team() {
 
   // Create cloned cards for infinite carousel
   const sliderMembers = useMemo(() => {
-    const beforeClones = teamMembers.slice(-visibleCount);
-    const afterClones = teamMembers.slice(0, visibleCount);
+    const beforeClones = members.slice(-visibleCount);
+    const afterClones = members.slice(0, visibleCount);
 
-    return [...beforeClones, ...teamMembers, ...afterClones];
-  }, [visibleCount]);
+    return [...beforeClones, ...members, ...afterClones];
+  }, [visibleCount, members]);
 
   // Reset position when responsive layout changes
   useEffect(() => {

@@ -19,6 +19,7 @@ import photoshopImage from "../../assets/photoshop.png";
 import figmaImage from "../../assets/figma.png";
 import companyBackground from "../../assets/mitech-home-infotechno-section-company-bg.webp";
 import "./technologies.css";
+import { getApi, mediaUrl } from "../../lib/api.js";
 
 const technologies = [
   { name: "HTML5", image: html5Image },
@@ -50,19 +51,19 @@ export default function Technologies() {
   useEffect(() => {
     let active = true;
 
-    fetch("/api/technologies")
-      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load technologies")))
-      .then(({ data }) => {
+    const controller = new AbortController();
+    getApi("/api/technologies", { signal: controller.signal })
+      .then((data) => {
         if (!active || !Array.isArray(data)) return;
         const nextItems = data.map((technology) => {
           const fallback = technologies.find((item) => item.name === technology.name);
-          return fallback ? { ...fallback, ...technology } : null;
-        }).filter(Boolean);
+          return { ...fallback, ...technology, image: mediaUrl(technology.logo ?? technology.logoUrl ?? technology.logo_url ?? technology.image) ?? fallback?.image };
+        }).filter((technology) => technology.image);
         if (nextItems.length) setTechnologyItems(nextItems);
       })
-      .catch(() => {});
+      .catch((error) => { if (error.name !== "AbortError") console.warn("Technologies are unavailable."); });
 
-    return () => { active = false; };
+    return () => { active = false; controller.abort(); };
   }, []);
 
   useEffect(() => {

@@ -1,0 +1,7 @@
+import { NextResponse } from 'next/server'
+import { createCms, listCms, resource } from '../../../../../src/lib/cms-repository.js'
+import { requireAdmin } from '../../../../../src/lib/auth.js'
+import { writeAudit } from '../../../../../src/lib/audit.js'
+
+export async function GET(_request, { params }) { try { await requireAdmin(); const { resource: name } = await params; if (!resource(name)) return NextResponse.json({ error: 'Unknown resource.' }, { status: 404 }); return NextResponse.json({ data: await listCms(name, true) }) } catch (error) { return NextResponse.json({ error: error.message === 'UNAUTHORIZED' ? 'Authentication required.' : 'Unable to load content.' }, { status: error.message === 'UNAUTHORIZED' ? 401 : 503 }) } }
+export async function POST(request, { params }) { try { const admin = await requireAdmin(); const { resource: name } = await params; if (!resource(name)) return NextResponse.json({ error: 'Unknown resource.' }, { status: 404 }); const body = await request.json(); const row = await createCms(name, body, admin.id); await writeAudit({ adminId: admin.id, action: 'create', entityType: name, entityId: row.id, newData: row, request }); return NextResponse.json({ data: row }, { status: 201 }) } catch (error) { console.error(error); return NextResponse.json({ error: error.message === 'UNAUTHORIZED' ? 'Authentication required.' : 'Unable to create content.' }, { status: error.message === 'UNAUTHORIZED' ? 401 : 400 }) } }

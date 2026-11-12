@@ -23,12 +23,53 @@
   },
   "dynamicRoutes": [
     {
+      "page": "/api/admin/content/[resource]",
+      "regex": "^/api/admin/content/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPresource": "nxtPresource"
+      },
+      "namedRegex": "^/api/admin/content/(?<nxtPresource>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/content/[resource]/[id]",
+      "regex": "^/api/admin/content/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPresource": "nxtPresource",
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/content/(?<nxtPresource>[^/]+?)/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/api/admin/[key]",
       "regex": "^/api/admin/([^/]+?)(?:/)?$",
       "routeKeys": {
         "nxtPkey": "nxtPkey"
       },
       "namedRegex": "^/api/admin/(?<nxtPkey>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/cms/content/[id]/draft",
+      "regex": "^/api/cms/content/([^/]+?)/draft(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/cms/content/(?<nxtPid>[^/]+?)/draft(?:/)?$"
+    },
+    {
+      "page": "/api/cms/pages/[slug]/content",
+      "regex": "^/api/cms/pages/([^/]+?)/content(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/api/cms/pages/(?<nxtPslug>[^/]+?)/content(?:/)?$"
+    },
+    {
+      "page": "/api/cms/pages/[slug]/publish",
+      "regex": "^/api/cms/pages/([^/]+?)/publish(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/api/cms/pages/(?<nxtPslug>[^/]+?)/publish(?:/)?$"
     },
     {
       "page": "/api/services/[slug]",
@@ -59,16 +100,64 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/api/admin/audit-logs",
+      "regex": "^/api/admin/audit\\-logs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/audit\\-logs(?:/)?$"
+    },
+    {
+      "page": "/api/admin/contacts",
+      "regex": "^/api/admin/contacts(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/contacts(?:/)?$"
+    },
+    {
+      "page": "/api/admin/media",
+      "regex": "^/api/admin/media(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/media(?:/)?$"
+    },
+    {
+      "page": "/api/admin/users",
+      "regex": "^/api/admin/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/users(?:/)?$"
+    },
+    {
+      "page": "/api/auth/login",
+      "regex": "^/api/auth/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/login(?:/)?$"
+    },
+    {
+      "page": "/api/auth/logout",
+      "regex": "^/api/auth/logout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/logout(?:/)?$"
+    },
+    {
       "page": "/api/banner",
       "regex": "^/api/banner(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/banner(?:/)?$"
     },
     {
+      "page": "/api/cms/pages",
+      "regex": "^/api/cms/pages(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/cms/pages(?:/)?$"
+    },
+    {
       "page": "/api/contact",
       "regex": "^/api/contact(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/contact(?:/)?$"
+    },
+    {
+      "page": "/api/faqs",
+      "regex": "^/api/faqs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/faqs(?:/)?$"
     },
     {
       "page": "/api/health",
@@ -87,6 +176,12 @@
       "regex": "^/api/services(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/services(?:/)?$"
+    },
+    {
+      "page": "/api/teams",
+      "regex": "^/api/teams(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/teams(?:/)?$"
     },
     {
       "page": "/api/technologies",

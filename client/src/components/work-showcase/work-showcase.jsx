@@ -9,6 +9,7 @@ import webDesignImage from "../../assets/img-s-2.webp";
 import ecommerceImage from "../../assets/img-s-33.webp";
 import campaignImage from "../../assets/img-s-44.webp";
 import showcaseBackground from "../../assets/service-background.png";
+import { getApi, mediaUrl } from "../../lib/api.js";
 
 const projects = [
   {
@@ -61,25 +62,6 @@ const projects = [
   },
 ];
 
-const filters = [
-  {
-    label: "All Works",
-    value: "all",
-  },
-  {
-    label: "Web Development",
-    value: "web-development",
-  },
-  {
-    label: "Web Design",
-    value: "web-design",
-  },
-  {
-    label: "E-commerce",
-    value: "ecommerce",
-  },
-];
-
 export default function WorkShowcase({ showAllLink = true }) {
   const sectionRef = useRef(null);
   const gridRef = useRef(null);
@@ -89,8 +71,30 @@ export default function WorkShowcase({ showAllLink = true }) {
   const transitionTimer = useRef(null);
 
   const [activeFilter, setActiveFilter] = useState("all");
+  const [projectItems, setProjectItems] = useState(projects);
 
   const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    getApi("/api/portfolio", { signal: controller.signal }).then((data) => {
+      if (!Array.isArray(data)) return;
+      const mapped = data.map((project, index) => {
+        const fallback = projects[index % projects.length];
+        return {
+          ...fallback,
+          ...project,
+          id: project.id ?? project.slug ?? `project-${index}`,
+          filter: project.filter ?? project.category?.toLowerCase().replace(/\s+/g, "-") ?? fallback.filter,
+          category: project.category ? `${project.category}${project.year ? ` - ${project.year}` : ""}` : fallback.category,
+          image: mediaUrl(project.featured_image ?? project.imageUrl ?? project.featuredImage ?? project.image?.url) ?? fallback.image,
+          imageAlt: project.imageAlt ?? project.image?.alt ?? fallback.imageAlt,
+        };
+      }).filter((project) => project.image);
+      if (mapped.length) setProjectItems(mapped);
+    }).catch((error) => { if (error.name !== "AbortError") console.warn("Portfolio is unavailable."); });
+    return () => controller.abort();
+  }, []);
 
   // =====================================
   // SCROLL REVEAL
@@ -229,7 +233,7 @@ export default function WorkShowcase({ showAllLink = true }) {
   // FILTERED PROJECTS
   // =====================================
 
-  const filteredProjects = activeFilter === "all" ? projects : projects.filter((project) => project.filter === activeFilter);
+  const availableFilters = [{ label: "All Works", value: "all" }, ...Array.from(new Set(projectItems.map((project) => project.filter))).map((value) => ({ label: value.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase()), value }))];
 
   return (
     <section
@@ -261,7 +265,7 @@ export default function WorkShowcase({ showAllLink = true }) {
         ================================= */}
 
         <div className="work-showcase__filters" role="group" aria-label="Filter portfolio projects">
-          {filters.map((filter) => (
+          {availableFilters.map((filter) => (
             <button key={filter.value} type="button" className={`work-showcase__filter ${activeFilter === filter.value ? "active" : ""}`} onClick={() => handleFilter(filter.value)} aria-pressed={activeFilter === filter.value}>
               {filter.label}
             </button>
@@ -273,7 +277,7 @@ export default function WorkShowcase({ showAllLink = true }) {
         ================================= */}
 
         <div ref={gridRef} className="work-showcase__grid" aria-live="polite">
-          {projects.map((project, index) => {
+          {projectItems.map((project, index) => {
             const isHidden = activeFilter !== "all" && project.filter !== activeFilter;
 
             return (
@@ -306,7 +310,7 @@ export default function WorkShowcase({ showAllLink = true }) {
                     <p>{project.category}</p>
                   </div>
 
-                  <span className="work-showcase__card-number">{String(project.id).padStart(2, "0")}</span>
+                  <span className="work-showcase__card-number">{String(index + 1).padStart(2, "0")}</span>
                 </div>
               </article>
             );

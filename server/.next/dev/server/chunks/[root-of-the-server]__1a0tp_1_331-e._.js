@@ -96,6 +96,15 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
+const submissions = new Map();
+function isRateLimited(request) {
+    const key = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+    const now = Date.now();
+    const attempts = (submissions.get(key) ?? []).filter((time)=>now - time < 60_000);
+    attempts.push(now);
+    submissions.set(key, attempts);
+    return attempts.length > 5;
+}
 function GET() {
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$content$2d$api$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getContent"])('site:contact', __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$content$2f$site$2d$content$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["contact"]);
 }
@@ -115,9 +124,21 @@ async function POST(request) {
     }
     const name = payload.fullName ?? payload.name;
     const { email, message, phone, subject } = payload;
-    if (!name || !email || !message) {
+    if (isRateLimited(request)) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+        error: 'Too many messages. Please wait a moment and try again.'
+    }, {
+        status: 429
+    });
+    if (typeof name !== 'string' || typeof message !== 'string' || !name.trim() || !message.trim() || !email) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: 'name, email, and message are required.'
+        }, {
+            status: 400
+        });
+    }
+    if (name.length > 160 || message.length > 10_000 || phone && String(phone).length > 40 || subject && String(subject).length > 160) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: 'One or more fields are too long.'
         }, {
             status: 400
         });
@@ -130,14 +151,15 @@ async function POST(request) {
         });
     }
     try {
-        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["ensureContactSubmissionsSchema"])();
-        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getDb"])().query(`INSERT INTO contact_submissions (name, email, phone, subject, message)
-       VALUES ($1, $2, $3, $4, $5)`, [
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getDb"])().query(`INSERT INTO contacts (name, email, phone, subject, service_interest, message, source_page, source_url)
+       VALUES ($1, $2, $3, $4, $4, $5, $6, $7)`, [
             name.trim(),
             email.trim().toLowerCase(),
             phone?.trim() || null,
             subject?.trim() || null,
-            message.trim()
+            message.trim(),
+            payload.sourcePage ?? 'contact-us',
+            payload.sourceUrl ?? null
         ]);
     } catch (error) {
         console.error('Unable to save contact submission:', error);
@@ -355,6 +377,8 @@ return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, _
 __turbopack_context__.s([
     "getContent",
     ()=>getContent,
+    "publicContent",
+    ()=>publicContent,
     "updateContent",
     ()=>updateContent
 ]);
@@ -366,10 +390,25 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 [__TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$content$2d$store$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
 ;
 ;
-async function getContent(key, fallback) {
+function isPublicRecord(record, now = new Date()) {
+    if (!record || typeof record !== 'object') return true;
+    if (record.active === false || [
+        'draft',
+        'archived',
+        'unpublished'
+    ].includes(String(record.status ?? '').toLowerCase())) return false;
+    const start = record.published_at ?? record.publish_at ?? record.publishAt;
+    const end = record.unpublish_at ?? record.unpublishAt;
+    return (!start || new Date(start) <= now) && (!end || new Date(end) >= now);
+}
+function publicContent(value) {
+    return Array.isArray(value) ? value.filter(isPublicRecord).sort((a, b)=>(a.display_order ?? a.order ?? 0) - (b.display_order ?? b.order ?? 0)) : value;
+}
+async function getContent(key, fallback, { publicOnly = true } = {}) {
     try {
+        const value = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$content$2d$store$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["readContent"])(key, fallback);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            data: await (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$content$2d$store$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["readContent"])(key, fallback)
+            data: publicOnly ? publicContent(value) : value
         });
     } catch (error) {
         console.error(`Unable to read ${key}:`, error);
@@ -396,6 +435,13 @@ async function updateContent(request, key) {
             error: 'data is required.'
         }, {
             status: 400
+        });
+    }
+    if (JSON.stringify(payload.data).length > 1_000_000) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: 'Content payload is too large.'
+        }, {
+            status: 413
         });
     }
     try {
@@ -520,6 +566,9 @@ function ensureContactSubmissionsSchema() {
     );
     ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS phone TEXT;
     ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS subject TEXT;
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'new';
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS internal_notes TEXT;
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
   `);
     return contactSchemaPromise;
 }

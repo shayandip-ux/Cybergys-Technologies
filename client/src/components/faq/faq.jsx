@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./faq.css";
 import faqCollage from "../../assets/faqs.png";
 import rotatingShape from "../../assets/img-s-27.webp";
+import { getApi } from "../../lib/api.js";
 
 const questions = [
   {
@@ -22,6 +23,15 @@ export default function FAQ() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
   const [openIndex, setOpenIndex] = useState(0);
+  const [faqItems, setFaqItems] = useState(questions);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    getApi("/api/faqs?page=home", { signal: controller.signal }).then((data) => {
+      if (Array.isArray(data) && data.length) setFaqItems(data);
+    }).catch((error) => { if (error.name !== "AbortError") console.warn("FAQ content is unavailable."); });
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -56,7 +66,7 @@ export default function FAQ() {
           </header>
 
           <div className="faq-section__list">
-            {questions.map(({ question, answer }, index) => {
+            {faqItems.map(({ question, answer }, index) => {
               const isOpen = openIndex === index;
               const answerId = `faq-answer-${index + 1}`;
 

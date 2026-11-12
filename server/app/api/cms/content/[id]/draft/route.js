@@ -1,0 +1,5 @@
+import { NextResponse } from 'next/server'
+import { requireAdmin } from '../../../../../../src/lib/auth.js'
+import { getDb } from '../../../../../../src/lib/db.js'
+import { writeAudit } from '../../../../../../src/lib/audit.js'
+export async function PUT(request,{params}) { try { const admin=await requireAdmin(); const {id}=await params; const {value}=await request.json(); const before=await getDb().query('SELECT draft_value FROM cms_page_content WHERE id=$1',[id]); const result=await getDb().query('UPDATE cms_page_content SET draft_value=$2::jsonb,updated_by=$3,updated_at=NOW() WHERE id=$1 RETURNING *',[id,JSON.stringify({value}),admin.id]); if(result.rowCount) await writeAudit({adminId:admin.id,action:'save_draft',entityType:'cms_content',entityId:id,oldData:before.rows[0]?.draft_value,newData:{value},request}); return result.rowCount?NextResponse.json({data:result.rows[0]}):NextResponse.json({error:'Content not found.'},{status:404}) } catch { return NextResponse.json({error:'Unable to save draft.'},{status:400}) } }

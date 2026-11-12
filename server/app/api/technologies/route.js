@@ -1,5 +1,4 @@
-import { technologies } from '../../../src/content/site-content.js'
-import { getContent, updateContent } from '../../../src/lib/content-api.js'
+import { NextResponse } from 'next/server'
+import { listCms } from '../../../src/lib/cms-repository.js'
 
-export function GET() { return getContent('site:technologies', technologies) }
-export function PUT(request) { return updateContent(request, 'site:technologies') }
+export async function GET() { try { return NextResponse.json({ data: await listCms('technologies') }) } catch { return NextResponse.json({ error: 'Technologies are unavailable.' }, { status: 503 }) } }

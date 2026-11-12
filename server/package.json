@@ -6,7 +6,8 @@
   "scripts": {
     "build": "next build",
     "start": "next start --port 5000",
-    "dev": "next dev --port 5000"
+    "dev": "next dev --port 5000",
+    "seed:cms": "node --env-file=.env db/seed-cms.mjs"
   },
   "dependencies": {
     "next": "^16.4.5",

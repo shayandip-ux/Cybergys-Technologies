@@ -297,6 +297,8 @@ return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, _
 __turbopack_context__.s([
     "getContent",
     ()=>getContent,
+    "publicContent",
+    ()=>publicContent,
     "updateContent",
     ()=>updateContent
 ]);
@@ -308,10 +310,25 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 [__TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$content$2d$store$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__;
 ;
 ;
-async function getContent(key, fallback) {
+function isPublicRecord(record, now = new Date()) {
+    if (!record || typeof record !== 'object') return true;
+    if (record.active === false || [
+        'draft',
+        'archived',
+        'unpublished'
+    ].includes(String(record.status ?? '').toLowerCase())) return false;
+    const start = record.published_at ?? record.publish_at ?? record.publishAt;
+    const end = record.unpublish_at ?? record.unpublishAt;
+    return (!start || new Date(start) <= now) && (!end || new Date(end) >= now);
+}
+function publicContent(value) {
+    return Array.isArray(value) ? value.filter(isPublicRecord).sort((a, b)=>(a.display_order ?? a.order ?? 0) - (b.display_order ?? b.order ?? 0)) : value;
+}
+async function getContent(key, fallback, { publicOnly = true } = {}) {
     try {
+        const value = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$content$2d$store$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["readContent"])(key, fallback);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-            data: await (0, __TURBOPACK__imported__module__$5b$project$5d2f$server$2f$src$2f$lib$2f$content$2d$store$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["readContent"])(key, fallback)
+            data: publicOnly ? publicContent(value) : value
         });
     } catch (error) {
         console.error(`Unable to read ${key}:`, error);
@@ -338,6 +355,13 @@ async function updateContent(request, key) {
             error: 'data is required.'
         }, {
             status: 400
+        });
+    }
+    if (JSON.stringify(payload.data).length > 1_000_000) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: 'Content payload is too large.'
+        }, {
+            status: 413
         });
     }
     try {
@@ -462,6 +486,9 @@ function ensureContactSubmissionsSchema() {
     );
     ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS phone TEXT;
     ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS subject TEXT;
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'new';
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS internal_notes TEXT;
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
   `);
     return contactSchemaPromise;
 }

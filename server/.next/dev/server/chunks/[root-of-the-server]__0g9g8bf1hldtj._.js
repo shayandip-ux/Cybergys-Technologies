@@ -274,6 +274,9 @@ function ensureContactSubmissionsSchema() {
     );
     ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS phone TEXT;
     ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS subject TEXT;
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'new';
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS internal_notes TEXT;
+    ALTER TABLE contact_submissions ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
   `);
     return contactSchemaPromise;
 }

@@ -5,6 +5,7 @@ import aboutImage from "../../assets/img-s-4.webp";
 import codeImage from "../../assets/code-1.png";
 import aboutRightImage from "../../assets/about-right.png";
 import "./aboutus.css";
+import { CmsText } from "../../cms/PageContent.jsx";
 
 export default function AboutUs() {
   const headingRef = useRef(null);
@@ -39,16 +40,18 @@ export default function AboutUs() {
       {/* HEADING SECTION */}
 
       <div ref={headingRef} className="aboutus_firstoutsection aboutus-heading-enter">
-        <span className="aboutus_fstheading">1. WHO WE ARE</span>
+        <CmsText as="span" className="aboutus_fstheading" contentKey="about.eyebrow" fallback="1. WHO WE ARE" />
 
         <span className="aboutus_secondoutsection">
-          HAVE A BRILLIANT
+          <CmsText contentKey="about.heading_line_one" fallback="HAVE A BRILLIANT" />
           <br />
-          IDEA BOOST THE <span className="aboutus_graytext aboutus-growth">GROWTH</span>
+          <CmsText contentKey="about.heading_line_two" fallback="IDEA BOOST THE" /> {" "}
+          <CmsText as="span" className="aboutus_graytext aboutus-growth" contentKey="about.highlight_growth" fallback="GROWTH" />
           <br />
-          <span className="aboutus_graytext aboutus-development">DEVELOPMENT</span> AGENCY
+          <CmsText as="span" className="aboutus_graytext aboutus-development" contentKey="about.highlight_development" fallback="DEVELOPMENT" /> {" "}
+          <CmsText contentKey="about.heading_agency" fallback="AGENCY" />
           <br />
-          YOUR BRANDING!
+          <CmsText contentKey="about.heading_branding" fallback="YOUR BRANDING!" />
         </span>
 
         <img src={aboutShape} className="aboutus_rightshapedesign aboutus-shape-enter" alt="" aria-hidden="true" />
@@ -63,29 +66,21 @@ export default function AboutUs() {
           <img src={aboutImage} alt="" />
 
           <div className="aboutus-counter">
-            <span className="aboutus_leftnumbertextdesign">32k+</span>
+            <CmsText as="span" className="aboutus_leftnumbertextdesign" contentKey="about.client_count" fallback="32k+" />
 
-            <span className="aboutus_leftrotatetetxtdesign">
-              happy clients
-              <br />
-              of our
-              <br />
-              services
-            </span>
+            <CmsText as="span" className="aboutus_leftrotatetetxtdesign" contentKey="about.client_caption" fallback="happy clients of our services" />
           </div>
         </div>
 
         {/* RIGHT CONTENT */}
 
         <div className="aboutus_secondstructureright aboutus-right-enter">
-          <p>Welcome to Cybergys Technologies – Empowering Technological Excellence Since 2006. Cybergys has emerged as a leading company in the digital realm headquartered in Kolkata, India. Since its establishment, the company thrives to provide services globally.</p>
+          <CmsText as="p" contentKey="about.intro" fallback="Welcome to Cybergys Technologies – Empowering Technological Excellence Since 2006." />
 
-          <p>Our expertise spans a spectrum of services, including Web development, Web design, Application development, Digital marketing, BPO/KPO and Customer support services. Specializing in Web development, our professionals bring innovation and expertise to every project.</p>
+          <CmsText as="p" contentKey="about.description" fallback="Our expertise spans a spectrum of services, including Web development, Web design, Application development, Digital marketing, BPO/KPO and Customer support services. Specializing in Web development, our professionals bring innovation and expertise to every project." />
 
           <Link className="explore_btndesign" to="/about-us" aria-label="Explore more about us">
-            Explore Us
-            <br />
-            More
+            <CmsText as="span" contentKey="about.cta" fallback="Explore Us More" />
           </Link>
         </div>
       </div>

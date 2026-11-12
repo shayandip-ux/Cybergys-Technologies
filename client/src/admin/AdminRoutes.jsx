@@ -1,9 +1,13 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Dashboard from "./pages/Dashboard.jsx";
 import Layout from "./pages/Layout.jsx";
 import SiteContentPage from "./pages/content/SiteContentPage.jsx";
 import Login from "./pages/login/Login.jsx";
+import ContactsPage from "./pages/content/ContactsPage.jsx";
+import VisualCmsPage from "./pages/content/VisualCmsPage.jsx";
+import AuditLogs from "./pages/AuditLogs.jsx";
 import "./admin.css";
 
 function AdminRoot() {
@@ -14,20 +18,32 @@ function AdminRoot() {
   );
 }
 
+function ProtectedAdmin() {
+  const [state, setState] = useState("loading");
+  useEffect(() => { fetch("/api/auth/login").then((response) => setState(response.ok ? "allowed" : "denied")).catch(() => setState("denied")); }, []);
+  if (state === "loading") return null;
+  return state === "allowed" ? <Outlet /> : <Navigate to="/admin/login" replace />;
+}
+
 export default function AdminRoutes() {
   return (
     <Routes>
       <Route element={<AdminRoot />}>
         <Route path="login" element={<Login />} />
-        <Route element={<Layout />}>
+        <Route element={<ProtectedAdmin />}><Route element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="users" element={<SiteContentPage title="Users" endpoint="/api/admin/users" description="Manage admin users stored in PostgreSQL." />} />
-          <Route path="content/banner" element={<SiteContentPage title="Banner" endpoint="/api/banner" description="Homepage banner copy and video settings." />} />
-          <Route path="content/services" element={<SiteContentPage title="Services" endpoint="/api/services" description="Service cards and service-detail content." />} />
+          <Route path="cms" element={<VisualCmsPage />} />
+          <Route path="activity" element={<AuditLogs />} />
+          <Route path="users" element={<SiteContentPage title="Users" endpoint="/api/admin/users" description="Admin accounts stored in PostgreSQL." />} />
+          <Route path="content/banner" element={<SiteContentPage title="Banners" endpoint="/api/admin/content/banners" description="Homepage hero copy, CTA links and desktop/mobile image URLs." />} />
+          <Route path="content/services" element={<SiteContentPage title="Services" endpoint="/api/admin/content/services" description="Service cards and service-detail content." />} />
           <Route path="content/testimonials" element={<SiteContentPage title="Testimonials" endpoint="/api/testimonials" description="Customer testimonials shown on the website." />} />
-          <Route path="content/technologies" element={<SiteContentPage title="Technologies" endpoint="/api/technologies" description="Technology stack displayed on the website." />} />
-          <Route path="content/portfolio" element={<SiteContentPage title="Portfolio" endpoint="/api/portfolio" description="Portfolio projects and featured-work content." />} />
+          <Route path="content/technologies" element={<SiteContentPage title="Technologies" endpoint="/api/admin/content/technologies" description="Technology stack displayed on the website." />} />
+          <Route path="content/portfolio" element={<SiteContentPage title="Portfolio" endpoint="/api/admin/content/portfolio" description="Portfolio projects and featured-work content." />} />
+          <Route path="content/team" element={<SiteContentPage title="Team" endpoint="/api/admin/content/teams" description="Team members shown on the homepage and About Us page." />} />
+          <Route path="content/faqs" element={<SiteContentPage title="FAQs" endpoint="/api/admin/content/faqs" description="Published answers displayed on the homepage." />} />
           <Route path="content/contact" element={<SiteContentPage title="Contact" endpoint="/api/contact" description="Contact details and form subject options." />} />
+          <Route path="content/enquiries" element={<ContactsPage />} />
           <Route path="content/categories" element={<SiteContentPage title="Categories" endpoint="/api/admin/categories" description="Manage content categories in PostgreSQL." />} />
           <Route path="content/listings" element={<SiteContentPage title="Listings" endpoint="/api/admin/listings" description="Manage listings in PostgreSQL." />} />
           <Route path="content/posts" element={<SiteContentPage title="Posts" endpoint="/api/admin/posts" description="Manage posts in PostgreSQL." />} />
@@ -41,7 +57,7 @@ export default function AdminRoutes() {
           <Route path="partners-tracking/partner-enquiries" element={<SiteContentPage title="Partner enquiries" endpoint="/api/admin/partner-enquiries" description="Manage partner enquiries in PostgreSQL." />} />
           <Route path="partners-tracking/partner-form" element={<SiteContentPage title="Partner form" endpoint="/api/admin/partner-form" description="Manage partner form configuration in PostgreSQL." />} />
           <Route path="settings" element={<SiteContentPage title="Settings" endpoint="/api/admin/settings" description="Manage dashboard settings in PostgreSQL." />} />
-        </Route>
+        </Route></Route>
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>

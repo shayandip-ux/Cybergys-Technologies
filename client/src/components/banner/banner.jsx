@@ -6,10 +6,23 @@ import heroShape from "../../assets/hero-shape-3-1.png";
 import teamPhoto from "../../assets/banner-right-main.webp";
 import scrollDownImage from "../../assets/scroll-downs.png";
 import companyVideo from "../../assets/Lovable-20-is-SnapYT.App.mp4";
+import { getApi, mediaUrl } from "../../lib/api.js";
 import "./banner.css";
 
 function Banner() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    getApi("/api/banner", { signal: controller.signal }).then((data) => setContent(Array.isArray(data) ? data[0] ?? null : data)).catch((error) => {
+      if (error.name !== "AbortError") console.warn("Banner content is unavailable.");
+    });
+    return () => controller.abort();
+  }, []);
+
+  const serviceLines = content?.subtitle?.split(/\n|\s{2,}/).filter(Boolean) ?? ["WEB", "DESIGN"];
+  const headingLines = (content?.title ?? "WE ARE\nSKILLED IN").split(/\n|\s{2,}/);
 
   useEffect(() => {
     if (!isVideoOpen) return;
@@ -43,21 +56,20 @@ function Banner() {
           {/* LEFT CONTENT */}
           <div className="w-full min-w-0">
             <h1 className="fstleftheading_textdesign banner-heading-enter">
-              WE ARE
+              {headingLines[0] ?? "WE ARE"}
               <br />
-              SKILLED IN
+              {headingLines.slice(1).join(" ") || "SKILLED IN"}
             </h1>
 
             <div className="relative flex w-full items-center px-5 py-5 sm:px-8 banner-title-row-enter">
               <div className="flex shrink-0 flex-col fstdownleft_textdesign">
-                <span>WEB</span>
-                <span>DESIGN</span>
+                {serviceLines.map((line) => <span key={line}>{line}</span>)}
               </div>
 
-              <h1 className="banner-and ml-3 shrink-0 fstleftheading_textdesign">AND</h1>
+              <h1 className="banner-and ml-3 shrink-0 fstleftheading_textdesign">{content?.connector ?? "AND"}</h1>
 
               <div className="banner-development relative flex shrink-0 items-center justify-center rounded-[30px] bg-[#C8F31D] sm:h-[100px] sm:w-[100px] greenbox_Section">
-                <span className="banner-development__text absolute rotate_textdesign">development</span>
+                <span className="banner-development__text absolute rotate_textdesign">{content?.description ?? "development"}</span>
 
                 <div className="banner-development__avatar absolute -right-[34px] top-1/2 flex -translate-y-1/2 items-center justify-center overflow-hidden">
                   <img src={developerAvatar} alt="Developer avatar" className="w-[70px]" />
@@ -69,7 +81,7 @@ function Banner() {
             <div className="flex bannerleft_laststructure banner-customer-enter">
               <img src={customerAvatars} alt="Customer avatars" className="w-[130px]" />
 
-              <span className="usericontext_design">We have 24k+ customers in worldwide</span>
+              <span className="usericontext_design">{content?.button_text ?? "We have 24k+ customers in worldwide"}</span>
             </div>
           </div>
 
@@ -77,7 +89,10 @@ function Banner() {
           <div className="relative flex w-full min-w-0 items-center justify-center">
             <img src={heroShape} alt="" aria-hidden="true" className="bulbimg_design banner-shape-enter" />
 
-            <img src={teamPhoto} alt="Our creative team" className="rightimg_design banner-image-enter" />
+            <picture>
+              {content?.mobile_image && <source media="(max-width: 767px)" srcSet={mediaUrl(content.mobile_image)} />}
+              <img src={mediaUrl(content?.desktop_image) ?? teamPhoto} alt={content?.title ?? "Our creative team"} className="rightimg_design banner-image-enter" />
+            </picture>
 
             {/* ANIMATED VIDEO BUTTON */}
             <button type="button" aria-label="Play company video" onClick={() => setIsVideoOpen(true)} className="group cursor-pointer relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-[3px] border-white bg-black text-white transition-transform duration-300 hover:scale-105 sm:h-[80px] sm:w-[80px] circlebtn_animatedesign banner-video-button-enter">

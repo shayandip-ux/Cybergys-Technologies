@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./services.css";
 import servicesBackground from "../../assets/service-background.png";
 import { services } from "./services-data.js";
+import { getApi, mediaUrl } from "../../lib/api.js";
 
 export default function Services() {
   const headingRef = useRef(null);
@@ -12,18 +13,18 @@ export default function Services() {
   useEffect(() => {
     let active = true;
 
-    fetch("/api/services")
-      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load services")))
-      .then(({ data }) => {
+    const controller = new AbortController();
+    getApi("/api/services", { signal: controller.signal })
+      .then((data) => {
         if (!active || !Array.isArray(data)) return;
         setServiceItems(data.map((service) => {
           const fallback = services.find((item) => item.slug === service.slug);
-          return { ...fallback, ...service, image: fallback?.image, imageAlt: service.image?.alt ?? fallback?.imageAlt };
+          return { ...fallback, ...service, description: service.short_description ?? service.description ?? fallback?.description, image: mediaUrl(service.featured_image ?? service.imageUrl ?? service.image?.url) ?? fallback?.image, imageAlt: service.imageAlt ?? service.image?.alt ?? fallback?.imageAlt };
         }));
       })
-      .catch(() => {});
+      .catch((error) => { if (error.name !== "AbortError") console.warn("Services are unavailable."); });
 
-    return () => { active = false; };
+    return () => { active = false; controller.abort(); };
   }, []);
 
   useEffect(() => {

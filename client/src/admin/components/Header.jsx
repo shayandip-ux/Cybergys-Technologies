@@ -102,7 +102,7 @@ const Header = ({ title, breadcrumb, onMenuClick }) => {
                   Account settings
                 </button>
 
-                <button type="button" onClick={() => navigate("/admin/login")} className="cursor-pointer flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-[13px] text-[#dc2626] hover:bg-[#fef2f2]">
+                <button type="button" onClick={async () => { await fetch("/api/auth/logout", { method: "POST" }); navigate("/admin/login"); }} className="cursor-pointer flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-[13px] text-[#dc2626] hover:bg-[#fef2f2]">
                   <LogOut size={16} />
                   Sign out
                 </button>

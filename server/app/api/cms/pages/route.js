@@ -1,0 +1,2 @@
+import { NextResponse } from 'next/server'; import { ensureVisualCms } from '../../../../src/lib/visual-cms.js'; import { getDb } from '../../../../src/lib/db.js';
+export async function GET(){try{await ensureVisualCms();return NextResponse.json({data:(await getDb().query('SELECT id,page_name,page_slug,page_url,description,seo_title,seo_description FROM cms_pages WHERE is_active=TRUE ORDER BY page_name')).rows})}catch{return NextResponse.json({error:'CMS unavailable.'},{status:503})}}

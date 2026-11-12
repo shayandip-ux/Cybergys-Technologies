@@ -1,8 +1,6 @@
-import { banner } from '../../../src/content/site-content.js'
-import { getContent, updateContent } from '../../../src/lib/content-api.js'
+import { NextResponse } from 'next/server'
+import { listCms } from '../../../src/lib/cms-repository.js'
 
-export function GET() {
-  return getContent('site:banner', banner)
+export async function GET() {
+  try { return NextResponse.json({ data: await listCms('banners') }) } catch { return NextResponse.json({ error: 'Banner content is unavailable.' }, { status: 503 }) }
 }
-
-export function PUT(request) { return updateContent(request, 'site:banner') }

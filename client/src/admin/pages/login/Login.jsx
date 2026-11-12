@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
-  Check,
   Eye,
   EyeOff,
   Code2,
@@ -11,7 +10,6 @@ import {
   Megaphone,
   Palette,
   Headphones,
-  ShieldCheck,
   ShoppingCart,
   Smartphone,
 } from "lucide-react";
@@ -29,12 +27,20 @@ const categories = [
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Replace this demo redirect with your authentication request when it is ready.
-    navigate("/admin");
+    const form = new FormData(event.currentTarget);
+    setIsSubmitting(true); setError("");
+    try {
+      const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: form.get("email"), password: form.get("password") }) });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error ?? "Unable to sign in.");
+      navigate("/admin");
+    } catch (loginError) { setError(loginError.message); } finally { setIsSubmitting(false); }
   };
 
   return (
@@ -155,11 +161,13 @@ const Login = () => {
               Remember me
             </label>
 
+            {error && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
             <button
               type="submit"
+              disabled={isSubmitting}
               className="cursor-pointer group flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#ff7a00] text-sm font-bold text-white shadow-[0_8px_20px_rgba(213,13,67,0.2)] transition hover:-translate-y-0.5 hover:bg-[#d96600] hover:shadow-[0_12px_26px_rgba(213,13,67,0.25)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#ff7a00]/25 active:translate-y-0"
             >
-              Sign in
+              {isSubmitting ? "Signing in…" : "Sign in"}
               <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </button>
           </form>
