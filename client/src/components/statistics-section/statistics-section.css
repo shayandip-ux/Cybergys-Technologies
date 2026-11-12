@@ -1,9 +1,10 @@
 .statistics-section {
-  width: 100%;
-  margin-top: 80px;
-  padding: 0;
-  background: #fff;
+    width: 100%;
+    margin-top: 80px;
+    background: rgb(255, 255, 255);
+    padding: 0px;
 }
+
 
 .statistics-section__grid {
   display: grid;

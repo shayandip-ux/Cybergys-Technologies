@@ -39,13 +39,31 @@ const technologies = [
   { name: "Figma", image: figmaImage },
 ];
 
-const technologyColumns = Array.from({ length: 4 }, (_, columnIndex) =>
-  technologies.filter((_, technologyIndex) => technologyIndex % 4 === columnIndex),
-);
-
 export default function Technologies() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
+  const [technologyItems, setTechnologyItems] = useState(technologies);
+  const technologyColumns = Array.from({ length: 4 }, (_, columnIndex) =>
+    technologyItems.filter((_, technologyIndex) => technologyIndex % 4 === columnIndex),
+  );
+
+  useEffect(() => {
+    let active = true;
+
+    fetch("/api/technologies")
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load technologies")))
+      .then(({ data }) => {
+        if (!active || !Array.isArray(data)) return;
+        const nextItems = data.map((technology) => {
+          const fallback = technologies.find((item) => item.name === technology.name);
+          return fallback ? { ...fallback, ...technology } : null;
+        }).filter(Boolean);
+        if (nextItems.length) setTechnologyItems(nextItems);
+      })
+      .catch(() => {});
+
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -87,7 +105,7 @@ export default function Technologies() {
 
         <div className="technologies-section__grid" aria-label="Technology stack">
           {technologyColumns.map((column, columnIndex) => (
-            <div className="technologies-section__column" key={column[0].name}>
+            <div className="technologies-section__column" key={column[0]?.name ?? columnIndex}>
               <div className={`technologies-section__track${columnIndex % 2 === 1 ? " is-reversed" : ""}`}>
                 {[0, 1].map((copy) => (
                   <div

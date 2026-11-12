@@ -1,0 +1,42 @@
+.admin-app {
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #111827;
+  font-family: "Poppins", "Century Gothic", system-ui, sans-serif;
+}
+
+.admin-app *,
+.admin-app *::before,
+.admin-app *::after {
+  box-sizing: border-box;
+}
+
+.admin-app button {
+  font-family: inherit;
+}
+
+.admin-app ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.admin-app ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+@keyframes deleteModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.admin-app .animate-delete-modal {
+  animation: deleteModalIn 0.18s ease-out;
+}

@@ -4,7 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node --env-file-if-exists=../.env src/index.js",
-    "dev": "node --watch --env-file-if-exists=../.env src/index.js"
+    "build": "next build",
+    "start": "next start --port 5000",
+    "dev": "next dev --port 5000"
+  },
+  "dependencies": {
+    "next": "^16.4.5",
+    "pg": "^8.23.1"
   }
 }

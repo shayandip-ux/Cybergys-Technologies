@@ -1,0 +1,14 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/admin/[key]/route": "/api/admin/[key]",
+  "/api/banner/route": "/api/banner",
+  "/api/contact/route": "/api/contact",
+  "/api/health/route": "/api/health",
+  "/api/portfolio/route": "/api/portfolio",
+  "/api/services/[slug]/route": "/api/services/[slug]",
+  "/api/services/route": "/api/services",
+  "/api/technologies/route": "/api/technologies",
+  "/api/testimonials/route": "/api/testimonials",
+  "/page": "/"
+}

@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: "Poppins", "Century Gothic", system-ui, sans-serif;
+  background: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark-mode,
+html.dark-mode body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+html.dark-mode .bg-white,
+html.dark-mode [class*="bg-[#f8fafc]"],
+html.dark-mode [class*="bg-[#f9fbf9]"],
+html.dark-mode [class*="bg-[#F5F5F0]"] {
+  background-color: #172033 !important;
+}
+
+html.dark-mode [class*="bg-[#fbfcfd]"],
+html.dark-mode [class*="bg-[#fcfefd]"],
+html.dark-mode [class*="bg-[#f8fafc]"] {
+  background-color: #111827 !important;
+}
+
+html.dark-mode [class*="text-[#111827]"],
+html.dark-mode [class*="text-[#172033]"],
+html.dark-mode [class*="text-[#18202d]"],
+html.dark-mode [class*="text-slate-950"],
+html.dark-mode [class*="text-slate-900"] {
+  color: #f1f5f9 !important;
+}
+
+html.dark-mode [class*="text-[#334155]"],
+html.dark-mode [class*="text-[#354052]"],
+html.dark-mode [class*="text-[#526070]"],
+html.dark-mode [class*="text-[#475569]"],
+html.dark-mode [class*="text-slate-700"],
+html.dark-mode [class*="text-slate-600"] {
+  color: #cbd5e1 !important;
+}
+
+html.dark-mode [class*="text-[#64748b]"],
+html.dark-mode [class*="text-slate-500"],
+html.dark-mode [class*="text-slate-400"] {
+  color: #94a3b8 !important;
+html.dark-mode textarea::placeholder {
+  color: #64748b;
+}
+}
+
+html.dark-mode [class*="border-[#edf0f4]"],
+html.dark-mode [class*="border-[#edf0f5]"],
+html.dark-mode [class*="border-[#e7ebf0]"],
+html.dark-mode [class*="border-[#e5e7eb]"],
+html.dark-mode [class*="border-[#dfe5ee]"],
+html.dark-mode [class*="border-slate-200"],
+html.dark-mode [class*="border-slate-300"] {
+  border-color: #334155 !important;
+}
+html.dark-mode textarea::placeholder {
+  color: #64748b;
+}
+
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea {
+  background-color: #111827;
+  color: #f1f5f9;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder {
+  color: #64748b;
+}
+
+html.dark-mode .shadow-\[0_30px_90px_rgba\(15\,23\,42\,0\.12\)\] {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+}
+
+html.dark-mode .login-card {
+  background: rgba(23, 32, 51, 0.96);
+}
+
+button {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@layer components {
+  .input {
+    @apply w-full h-10 border border-[#dfe4eb] rounded-lg px-3 text-[12px] bg-white outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-100;
+  }
+}
+
+@keyframes deleteModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-delete-modal {
+  animation: deleteModalIn 0.18s ease-out;
+}
+#cms-submenu a {
+  margin-top: 20px;
+}

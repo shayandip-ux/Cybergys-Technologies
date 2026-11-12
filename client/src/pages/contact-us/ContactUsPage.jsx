@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Achievement from "../../components/achievement-section/achievement-section.jsx";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb.jsx";
@@ -22,6 +22,16 @@ export default function ContactUsPage() {
     subject: "",
     message: "",
   });
+  const [contactDetails, setContactDetails] = useState(null);
+  const [submissionStatus, setSubmissionStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/contact")
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load contact details")))
+      .then(({ data }) => setContactDetails(data))
+      .catch(() => {});
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -30,12 +40,26 @@ export default function ContactUsPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmissionStatus("");
 
-    console.log("Contact Form Data:", formData);
-
-    // Connect your API or backend submission endpoint here.
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error ?? "Could not send your message.");
+      setSubmissionStatus(payload.message);
+      setFormData({ fullName: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      setSubmissionStatus(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -68,7 +92,7 @@ export default function ContactUsPage() {
 
                     <div className="contact-info-text">
                       <h4>Call Us</h4>
-                      <a href="tel:+91 9007753459">+91 9007753459</a>
+                      <a href={`tel:${contactDetails?.phone ?? "+91 9007753459"}`}>{contactDetails?.phone ?? "+91 9007753459"}</a>
                     </div>
                   </div>
 
@@ -80,7 +104,7 @@ export default function ContactUsPage() {
 
                     <div className="contact-info-text">
                       <h4>Email Us</h4>
-                      <a href="mailto:info@cybergys.com">info@cybergys.com</a>
+                      <a href={`mailto:${contactDetails?.email ?? "info@cybergys.com"}`}>{contactDetails?.email ?? "info@cybergys.com"}</a>
                     </div>
                   </div>
 
@@ -92,7 +116,7 @@ export default function ContactUsPage() {
 
                     <div className="contact-info-text">
                       <h4>Our Office</h4>
-                      <p>15th Floor, Module 18, Bengal Eco Intelligent Park, EM-3, Sector V, Salt Lake, Kolkata – 700091</p>
+                      <p>{contactDetails?.address ?? "15th Floor, Module 18, Bengal Eco Intelligent Park, EM-3, Sector V, Salt Lake, Kolkata – 700091"}</p>
                     </div>
                   </div>
                 </div>
@@ -153,15 +177,7 @@ export default function ContactUsPage() {
                             Select a subject
                           </option>
 
-                          <option value="Web Designing">Web Designing</option>
-
-                          <option value="Web Development">Web Development</option>
-
-                          <option value="App Development">App Development</option>
-
-                          <option value="Digital Marketing">Digital Marketing</option>
-
-                          <option value="Other">Other</option>
+                          {(contactDetails?.subjects ?? ["Web Designing", "Web Development", "App Development", "Digital Marketing", "Other"]).map((subject) => <option key={subject} value={subject}>{subject}</option>)}
                         </select>
                       </div>
                     </div>
@@ -181,14 +197,15 @@ export default function ContactUsPage() {
                   </div>
 
                   {/* Submit Button */}
-                  <button type="submit" className="contact-submit-btn">
-                    <span>Send Message</span>
+                  <button type="submit" disabled={isSubmitting} className="contact-submit-btn">
+                    <span>{isSubmitting ? "Sending…" : "Send Message"}</span>
 
                     <svg viewBox="0 0 24 24">
                       <path d="M5 12h14" />
                       <path d="m13 5 7 7-7 7" />
                     </svg>
                   </button>
+                  {submissionStatus && <p role="status" className="mt-3 text-sm text-[#f27d2f]">{submissionStatus}</p>}
                 </form>
               </div>
             </div>

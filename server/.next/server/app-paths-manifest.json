@@ -1,0 +1,14 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/admin/[key]/route": "app/api/admin/[key]/route.js",
+  "/api/banner/route": "app/api/banner/route.js",
+  "/api/contact/route": "app/api/contact/route.js",
+  "/api/health/route": "app/api/health/route.js",
+  "/api/portfolio/route": "app/api/portfolio/route.js",
+  "/api/services/[slug]/route": "app/api/services/[slug]/route.js",
+  "/api/services/route": "app/api/services/route.js",
+  "/api/technologies/route": "app/api/technologies/route.js",
+  "/api/testimonials/route": "app/api/testimonials/route.js",
+  "/page": "app/page.js"
+}

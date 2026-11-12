@@ -1,6 +1,6 @@
 .banner_outsection {
   padding: 170px 0px 0px 0px;
-  height: 92vh;
+  /* height: 92vh; */
 }
 
 .bannerinner_mainboxsection {
@@ -748,6 +748,6 @@ RESPONSIVE DESIGN
 @media screen and (min-width: 1024px) {
   .banner_outsection {
     height: auto;
-    min-height: 92vh;
+    /* min-height: 92vh; */
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Homepage from "./pages/home/Homepage.jsx";
 import Aboutus from "./pages/about-us/Aboutus.jsx";
@@ -8,6 +8,8 @@ import TechnologiesPage from "./pages/technologies/TechnologiesPage.jsx";
 import PortfolioPage from "./pages/portfolio/PortfolioPage.jsx";
 import ContactUsPage from "./pages/contact-us/ContactUsPage.jsx";
 import PageLoader from "./components/page-loader/PageLoader.jsx";
+
+const AdminRoutes = lazy(() => import("./admin/AdminRoutes.jsx"));
 
 function RouteScrollManager() {
   const { pathname, hash } = useLocation();
@@ -43,6 +45,14 @@ function App() {
         <Route path="/technologies" element={<TechnologiesPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
+        <Route
+          path="/admin/*"
+          element={(
+            <Suspense fallback={null}>
+              <AdminRoutes />
+            </Suspense>
+          )}
+        />
         <Route path="*" element={<Homepage />} />
       </Routes>
       <PageLoader />

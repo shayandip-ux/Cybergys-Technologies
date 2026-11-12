@@ -7,6 +7,24 @@ import { services } from "./services-data.js";
 export default function Services() {
   const headingRef = useRef(null);
   const [isVisible, setIsVisible] = useState(() => typeof IntersectionObserver === "undefined");
+  const [serviceItems, setServiceItems] = useState(services);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch("/api/services")
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load services")))
+      .then(({ data }) => {
+        if (!active || !Array.isArray(data)) return;
+        setServiceItems(data.map((service) => {
+          const fallback = services.find((item) => item.slug === service.slug);
+          return { ...fallback, ...service, image: fallback?.image, imageAlt: service.image?.alt ?? fallback?.imageAlt };
+        }));
+      })
+      .catch(() => {});
+
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     const heading = headingRef.current;
@@ -44,7 +62,7 @@ export default function Services() {
           </Link>
         </div>
 
-        {services.map(({ slug, number, title, description, image, imageAlt }, index) => (
+        {serviceItems.map(({ slug, number, title, description, image, imageAlt }, index) => (
           <article className="services-card services-enter-up" style={{ "--services-stagger": `${index * 100}ms` }} key={number}>
             <span className="services-card__number">{number}</span>
             <div className="services-card__surface">

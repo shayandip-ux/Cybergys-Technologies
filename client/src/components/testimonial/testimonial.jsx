@@ -43,8 +43,24 @@ export default function TrustedTestimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState("next");
   const [animationKey, setAnimationKey] = useState(0);
+  const [testimonialItems, setTestimonialItems] = useState(testimonials);
 
-  const activeTestimonial = testimonials[activeIndex];
+  const activeTestimonial = testimonialItems[activeIndex] ?? testimonialItems[0];
+
+  useEffect(() => {
+    let active = true;
+
+    fetch("/api/testimonials")
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load testimonials")))
+      .then(({ data }) => {
+        if (!active || !Array.isArray(data) || !data.length) return;
+        setTestimonialItems(data.map((testimonial) => ({ ...testimonial, image: testimonial.avatarUrl ?? testimonial.image })));
+        setActiveIndex(0);
+      })
+      .catch(() => {});
+
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -68,7 +84,7 @@ export default function TrustedTestimonials() {
   const handleNext = () => {
     setDirection("next");
 
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    setActiveIndex((prev) => (prev + 1) % testimonialItems.length);
 
     setAnimationKey((prev) => prev + 1);
   };
@@ -77,7 +93,7 @@ export default function TrustedTestimonials() {
   const handlePrevious = () => {
     setDirection("prev");
 
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setActiveIndex((prev) => (prev - 1 + testimonialItems.length) % testimonialItems.length);
 
     setAnimationKey((prev) => prev + 1);
   };
